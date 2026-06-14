@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khairuramdhani — AI / ML &amp; Software Engineer</title>
+  <meta name="description" content="Portfolio of Khairuramdhani — AI / ML &amp; Software Engineer. Computer Vision, Embedded Systems (C++), and Mobile (Flutter). Computer Engineering student at Universitas Brawijaya." />
+  <meta name="author" content="Khairuramdhani" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Khairuramdhani — AI / ML &amp; Software Engineer" />
+  <meta property="og:description" content="Computer Vision · Embedded Systems (C++) · Mobile (Flutter). End-to-end AI projects, from data to real devices." />
+  <meta property="og:image" content="assets/profile.jpg" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Scroll progress -->
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+
+  <!-- Navbar -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#hero" class="brand" aria-label="Khairuramdhani — home">
+        <span class="brand__star" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 0c.6 6 5.4 10.8 12 12-6.6 1.2-11.4 6-12 12-.6-6-5.4-10.8-12-12C6.6 10.8 11.4 6 12 0Z"/></svg>
+        </span>
+        <span class="brand__name">Khairuramdhani</span>
+      </a>
+
+      <nav class="nav__links" id="nav-links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#contact" class="nav__cta">Let's connect</a>
+      </nav>
+
+      <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="container hero__grid">
+        <div class="hero__text">
+          <p class="eyebrow reveal">Portfolio</p>
+          <h1 class="hero__name reveal" data-delay="1">Khairuramdhani</h1>
+          <p class="hero__role reveal" data-delay="2">AI / ML &amp; Software Engineer</p>
+          <p class="hero__tags reveal" data-delay="3">
+            Computer Vision <span>·</span> Embedded Systems (C++) <span>·</span> Mobile (Flutter)
+          </p>
+
+          <div class="hero__org reveal" data-delay="4">
+            <strong>Universitas Brawijaya</strong>
+            <span>Computer Engineering · Teknik Komputer</span>
+          </div>
+
+          <div class="hero__actions reveal" data-delay="5">
+            <a href="#projects" class="btn btn--primary">View Projects</a>
+            <a href="#contact" class="btn btn--ghost">Get in touch</a>
+          </div>
+
+          <ul class="hero__contact reveal" data-delay="6">
+            <li><a href="mailto:khairuramdhani@student.ub.ac.id">khairuramdhani@student.ub.ac.id</a></li>
+            <li><a href="https://github.com/khaichi11" target="_blank" rel="noopener">github.com/khaichi11</a></li>
+          </ul>
+        </div>
+
+        <div class="hero__media reveal" data-delay="3">
+          <div class="hero__panel" aria-hidden="true"></div>
+          <div class="hero__photo">
+            <img src="assets/profile.jpg" alt="Portrait of Khairuramdhani" width="540" height="810" />
+          </div>
+          <span class="hero__accent" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow"><span class="dot"></span> About me <span class="sub">· Tentang Saya</span></p>
+          <h2 class="section__title">Turning ideas into software that works.</h2>
+        </div>
+
+        <div class="about__grid">
+          <div class="about__text reveal">
+            <p class="lead">
+              I'm a Computer Engineering student at Universitas Brawijaya who enjoys building
+              software and seeing it through to something people can actually use. Most of my
+              projects run the full path — from preparing the data and training a model to getting
+              it onto a real phone or device. I work mainly in <strong>Python</strong> and
+              <strong>C++</strong>, build mobile apps with <strong>Flutter</strong>, and my main
+              interest is <strong>Computer Vision</strong>, though I'm just as comfortable around
+              machine learning, data, and IoT. I like picking up new tools and figuring things out
+              as I go.
+            </p>
+            <p class="muted">
+              Saya mahasiswa Teknik Komputer Universitas Brawijaya yang senang membangun software
+              sampai benar-benar bisa dipakai. Sebagian besar proyek saya kerjakan dari awal sampai
+              akhir — menyiapkan data, melatih model, lalu menjalankannya di perangkat nyata. Saya
+              terbiasa dengan Python dan C++, membuat aplikasi mobile dengan Flutter, dan paling
+              tertarik pada Computer Vision, meski nyaman juga di machine learning, data, maupun IoT.
+            </p>
+          </div>
+
+          <div class="stats">
+            <div class="stat reveal" data-delay="1">
+              <span class="stat__num" data-count="6">0</span>
+              <span class="stat__label">End-to-end projects</span>
+              <span class="stat__sub">Proyek end-to-end</span>
+            </div>
+            <div class="stat reveal" data-delay="2">
+              <span class="stat__num" data-count="3">0</span>
+              <span class="stat__label">Core stacks · AI · C++ · Flutter</span>
+              <span class="stat__sub">Bidang utama</span>
+            </div>
+            <div class="stat reveal" data-delay="3">
+              <span class="stat__num" data-count="2">0</span>
+              <span class="stat__label">Teaching-assistant roles</span>
+              <span class="stat__sub">Asisten praktikum</span>
+            </div>
+            <div class="stat reveal" data-delay="4">
+              <span class="stat__num" data-count="5">0</span>
+              <span class="stat__label">Certifications</span>
+              <span class="stat__sub">Sertifikasi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section section--alt" id="skills">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow"><span class="dot"></span> Technical skills <span class="sub">· Keahlian Teknis</span></p>
+          <h2 class="section__title">What I work with.</h2>
+        </div>
+
+        <div class="skills__grid">
+          <div class="skill-card reveal">
+            <h3>Programming Languages <span>Bahasa Pemrograman</span></h3>
+            <ul class="chips"><li>Python</li><li>C++</li><li>Dart</li><li>JavaScript</li></ul>
+          </div>
+          <div class="skill-card reveal" data-delay="1">
+            <h3>AI / Machine Learning <span>Kecerdasan Buatan</span></h3>
+            <ul class="chips"><li>PyTorch</li><li>TensorFlow</li><li>scikit-learn</li><li>Ultralytics</li><li>YOLO</li><li>CNN</li><li>SVM</li></ul>
+          </div>
+          <div class="skill-card reveal" data-delay="2">
+            <h3>Computer Vision <span>Visi Komputer</span></h3>
+            <ul class="chips"><li>OpenCV</li><li>Real-time detection</li><li>Image segmentation</li><li>On-device (TF Lite)</li></ul>
+          </div>
+          <div class="skill-card reveal">
+            <h3>Mobile Development <span>Pengembangan Mobile</span></h3>
+            <ul class="chips"><li>Flutter</li><li>Firebase</li><li>Supabase</li><li>UI/UX</li></ul>
+          </div>
+          <div class="skill-card reveal" data-delay="1">
+            <h3>Embedded / IoT <span>Sistem Tertanam</span></h3>
+            <ul class="chips"><li>C++</li><li>Arduino</li><li>ESP32</li><li>FreeRTOS</li><li>Sensors</li><li>RTC</li></ul>
+          </div>
+          <div class="skill-card reveal" data-delay="2">
+            <h3>Data &amp; Analysis <span>Data &amp; Analisis</span></h3>
+            <ul class="chips"><li>pandas</li><li>NumPy</li><li>matplotlib</li><li>seaborn</li><li>EDA</li></ul>
+          </div>
+          <div class="skill-card reveal">
+            <h3>Tools &amp; Workflow <span>Alat &amp; Workflow</span></h3>
+            <ul class="chips"><li>Git</li><li>Linux</li><li>Anaconda</li><li>Weights &amp; Biases</li><li>GitHub Actions</li></ul>
+          </div>
+          <div class="skill-card reveal" data-delay="1">
+            <h3>Languages <span>Bahasa</span></h3>
+            <ul class="chips"><li>Indonesian (native)</li><li>English (still improving)</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow"><span class="dot"></span> Experience <span class="sub">· Pengalaman</span></p>
+          <h2 class="section__title">Where I've been building &amp; teaching.</h2>
+        </div>
+
+        <div class="exp__grid">
+          <ol class="timeline">
+            <li class="timeline__item reveal">
+              <div class="timeline__dot"></div>
+              <div class="timeline__body">
+                <span class="timeline__date">Feb 2026 – Present</span>
+                <h3>AI Engineer Intern <span class="tag">AITF</span></h3>
+                <p class="timeline__org">Ministry of Communications &amp; Digital Affairs (Komdigi) × Universitas Brawijaya</p>
+                <p>A selective AI engineering internship under a national program — a cross-institution collaboration between Indonesia's Ministry of Communications and Digital Affairs (Komdigi) and Universitas Brawijaya.</p>
+                <ul class="checks">
+                  <li>Built a semi-automatic data-annotation pipeline using Vision-Language Models, cutting manual labelling effort</li>
+                  <li>Built end-to-end Deep Learning pipelines (data → training → evaluation) for Computer Vision tasks</li>
+                  <li>Fine-tuned &amp; optimised Large Language Models via parameter tuning and prompt engineering</li>
+                  <li>Collaborated in a cross-institution national AI research team</li>
+                </ul>
+                <ul class="chips chips--sm">
+                  <li>Vision-Language Models</li><li>LLM fine-tuning</li><li>Deep Learning</li><li>Computer Vision</li><li>Python</li><li>PyTorch</li><li>Prompt Engineering</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="timeline__item reveal">
+              <div class="timeline__dot"></div>
+              <div class="timeline__body">
+                <span class="timeline__date">Even Sem. 2024/2025</span>
+                <h3>Teaching Assistant — Data Structures &amp; Algorithms</h3>
+                <p class="timeline__org">Faculty of Computer Science, Universitas Brawijaya</p>
+                <p>Walked students through data structures and algorithms in the lab (in C++), and reviewed their practical assignments.</p>
+              </div>
+            </li>
+
+            <li class="timeline__item reveal">
+              <div class="timeline__dot"></div>
+              <div class="timeline__body">
+                <span class="timeline__date">Odd Sem. 2024/2025</span>
+                <h3>Teaching Assistant — Basic Programming</h3>
+                <p class="timeline__org">Faculty of Computer Science, Universitas Brawijaya</p>
+                <p>Helped first-year students get comfortable with the basics of programming, running lab sessions and giving feedback on their work.</p>
+              </div>
+            </li>
+          </ol>
+
+          <aside class="exp__side">
+            <figure class="exp__photo reveal">
+              <img src="assets/teaching.jpg" alt="Khairuramdhani as a teaching assistant during a practicum session" loading="lazy" />
+              <figcaption>Teaching assistant · practicum session</figcaption>
+            </figure>
+
+            <div class="info-card reveal" data-delay="1">
+              <h3 class="info-card__title">Education <span>Pendidikan</span></h3>
+              <div class="info-item">
+                <strong>Computer Engineering (S1) · Teknik Komputer</strong>
+                <span>Universitas Brawijaya, Malang · Aug 2023 – Present</span>
+              </div>
+              <div class="info-item">
+                <strong>SMA Negeri 1 Sindang, Indramayu</strong>
+                <span>Natural Sciences (IPA)</span>
+              </div>
+            </div>
+
+            <div class="info-card reveal" data-delay="2">
+              <h3 class="info-card__title">Organizations <span>Organisasi</span></h3>
+              <div class="info-item">
+                <strong>Robotiik — PIC Mechanical &amp; Computer Vision</strong>
+                <span>Mar 2024 – Present · Robot design in Fusion 360 &amp; 3D printing; Deep Learning perception with ROS 2</span>
+              </div>
+              <div class="info-item">
+                <strong>Poros — Web Front-End</strong>
+                <span>Mar 2024 – Dec 2025 · HTML, CSS, React; UI design with Figma</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section section--dark" id="projects">
+      <div class="container">
+        <div class="section__head section__head--center reveal">
+          <p class="eyebrow eyebrow--gold">Selected projects</p>
+          <h2 class="section__title">Projects</h2>
+          <p class="section__lead">Proyek pilihan · AI, Computer Vision, Embedded &amp; Mobile</p>
+        </div>
+      </div>
+
+      <div class="container projects">
+
+        <!-- 01 CERDAS -->
+        <article class="project reveal" id="cerdas">
+          <div class="project__main">
+            <figure class="project__hero">
+              <img src="assets/cerdas-hero.jpg" alt="CERDAS app detecting head orientation in real time on a phone" loading="lazy" />
+              <figcaption>Real-time orientation detection on-device</figcaption>
+            </figure>
+            <div class="project__info">
+              <p class="project__no">Project 01</p>
+              <h3 class="project__title">CERDAS</h3>
+              <p class="project__sub">Cheating Examination Recognition &amp; Detection — YOLO-based</p>
+              <p>CERDAS spots exam cheating in real time by reading where someone's head and eyes are pointing. I built it from start to finish — collecting and labelling the data, training a YOLO model, then getting it to run smoothly on an Android phone with TensorFlow Lite and Flutter. It keeps up at around 9 FPS and shows a confidence score for each prediction.</p>
+              <p class="muted">CERDAS mendeteksi perilaku mencontek secara real-time dengan membaca arah kepala dan pandangan mata. Saya kerjakan dari awal sampai akhir — data, model YOLO, lalu deploy ke HP Android lewat TensorFlow Lite &amp; Flutter, di kisaran 9 FPS.</p>
+              <ul class="checks">
+                <li>Real-time, on-device inference (~9 FPS)</li>
+                <li>6-class head &amp; gaze orientation detection</li>
+                <li>Full pipeline: data → training → Android deployment</li>
+              </ul>
+              <ul class="chips chips--sm">
+                <li>Python</li><li>Ultralytics</li><li>YOLO</li><li>Anaconda</li><li>Flutter</li><li>Dart</li><li>TensorFlow Lite</li><li>Android</li>
+              </ul>
+              <a class="repo" href="https://github.com/khaichi11/Mobile-Cheating-Detection-YOLO" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                github.com/khaichi11/Mobile-Cheating-Detection-YOLO
+              </a>
+            </div>
+          </div>
+          <div class="docs">
+            <p class="docs__label">Documentation <span>· Dokumentasi</span></p>
+            <div class="docs__grid">
+              <figure class="doc"><img class="zoomable" src="assets/cerdas-down.jpg" alt="CERDAS detecting head down — flagged as violation" loading="lazy" /><figcaption>Down · violation</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/cerdas-front.jpg" alt="CERDAS detecting front-facing — honest" loading="lazy" /><figcaption>Front · honest</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/cerdas-left.jpg" alt="CERDAS detecting head turned left — flagged as violation" loading="lazy" /><figcaption>Left · violation</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/cerdas-right.jpg" alt="CERDAS detecting head turned right — flagged as violation" loading="lazy" /><figcaption>Right · violation</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/cerdas-confusion.png" alt="Confusion matrix for the 6-class CERDAS model" loading="lazy" /><figcaption>Confusion matrix · 6 classes</figcaption></figure>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02 FishFeed -->
+        <article class="project project--reverse reveal" id="fishfeed">
+          <div class="project__main">
+            <figure class="project__hero">
+              <img src="assets/fishfeed-hero.png" alt="3D-printed automatic fish feeder prototype" loading="lazy" />
+              <figcaption>3D-printed fish feeder prototype</figcaption>
+            </figure>
+            <div class="project__info">
+              <p class="project__no">Project 02</p>
+              <h3 class="project__title">FishFeed</h3>
+              <p class="project__sub">Automatic Fish-Feeding System · Embedded &amp; IoT</p>
+              <p>FishFeed is an automatic fish feeder I built around an ESP32. The firmware is written in C++ on the Arduino framework and uses FreeRTOS to juggle tasks, with ultrasonic and turbidity sensors plus an RTC for timing. A Flutter app talks to it through Firebase, so you can check the water, the feed level, and set feeding schedules right from your phone.</p>
+              <p class="muted">FishFeed adalah pemberi pakan ikan otomatis di sekitar ESP32. Firmware C++ (Arduino) memakai FreeRTOS, sensor ultrasonik &amp; turbidity, serta RTC; aplikasi Flutter terhubung lewat Firebase untuk pantau &amp; jadwal dari HP.</p>
+              <ul class="checks">
+                <li>C++ firmware on ESP32 with FreeRTOS multitasking</li>
+                <li>Ultrasonic &amp; turbidity sensing with RTC scheduling</li>
+                <li>Real-time monitoring via Flutter + Firebase RTDB</li>
+              </ul>
+              <ul class="chips chips--sm">
+                <li>C++</li><li>Arduino</li><li>ESP32</li><li>FreeRTOS</li><li>Sensors</li><li>RTC</li><li>Flutter</li><li>Firebase RTDB</li>
+              </ul>
+              <a class="repo" href="https://github.com/khaichi11/Aplikasi-Sistem-Tertanam-FishFeed" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                github.com/khaichi11/Aplikasi-Sistem-Tertanam-FishFeed
+              </a>
+            </div>
+          </div>
+          <div class="docs">
+            <p class="docs__label">Documentation <span>· Dokumentasi</span></p>
+            <div class="docs__grid docs__grid--4">
+              <figure class="doc"><img class="zoomable" src="assets/fishfeed-circuit.png" alt="FishFeed circuit prototyping on a breadboard" loading="lazy" /><figcaption>Circuit prototyping</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/fishfeed-3d.png" alt="FishFeed 3D mechanical design in Fusion 360" loading="lazy" /><figcaption>3D mechanical design</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/fishfeed-assembled.png" alt="Assembled FishFeed device" loading="lazy" /><figcaption>Assembled device</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/fishfeed-app.png" alt="FishFeed companion app and monitoring dashboard" loading="lazy" /><figcaption>App &amp; monitoring dashboard</figcaption></figure>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03 Arrhythmia -->
+        <article class="project reveal" id="arrhythmia">
+          <div class="project__main">
+            <figure class="project__hero project__hero--doc">
+              <img src="assets/arrhythmia-hero.png" alt="Arrhythmia classification notebook — pipeline and methodology" loading="lazy" />
+              <figcaption>Notebook · pipeline &amp; methodology</figcaption>
+            </figure>
+            <div class="project__info">
+              <p class="project__no">Project 03</p>
+              <h3 class="project__title">Arrhythmia Classification</h3>
+              <p class="project__sub">R-R Interval &amp; QRS Duration using SVM</p>
+              <p>Here I trained a Support Vector Machine to tell normal heartbeats apart from arrhythmia, using the R-R interval and QRS duration from ECG data. I went through the whole process — exploring the data, normalising the features, building the pipeline, and checking results with a confusion matrix and classification report. It landed at <strong>96% accuracy</strong>.</p>
+              <p class="muted">Saya melatih SVM untuk membedakan detak jantung normal dan aritmia dari R-R interval &amp; durasi QRS pada data ECG. Prosesnya lengkap — EDA, normalisasi fitur, pipeline, hingga evaluasi. Hasilnya 96% akurasi.</p>
+              <ul class="checks">
+                <li>96% accuracy on the held-out test set</li>
+                <li>End-to-end ML pipeline with feature normalisation</li>
+                <li>EDA, confusion matrix &amp; classification report</li>
+              </ul>
+              <ul class="chips chips--sm">
+                <li>Python</li><li>scikit-learn</li><li>pandas</li><li>NumPy</li><li>matplotlib</li><li>Anaconda</li><li>SVM</li>
+              </ul>
+              <a class="repo" href="https://github.com/khaichi11/Code-on-College/blob/main/Semester%204/Sistem-Cerdas/SVM.ipynb" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                Code-on-College · SVM.ipynb
+              </a>
+            </div>
+          </div>
+          <div class="docs">
+            <p class="docs__label">Documentation <span>· Dokumentasi</span></p>
+            <div class="docs__grid docs__grid--4">
+              <figure class="doc"><img class="zoomable" src="assets/arrhythmia-classdist.png" alt="Class distribution chart from exploratory data analysis" loading="lazy" /><figcaption>Class distribution (EDA)</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/arrhythmia-scatter.png" alt="Feature scatter plot of R-R interval versus QRS duration" loading="lazy" /><figcaption>Feature scatter · RR vs QRS</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/arrhythmia-report.png" alt="Classification report showing 96% accuracy" loading="lazy" /><figcaption>Classification report · 96%</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/arrhythmia-confusion.png" alt="Confusion matrix for the SVM model" loading="lazy" /><figcaption>Confusion matrix · SVM</figcaption></figure>
+            </div>
+          </div>
+        </article>
+
+        <!-- 04 Buah-Seru -->
+        <article class="project project--reverse reveal" id="buahseru">
+          <div class="project__main">
+            <figure class="project__hero project__hero--doc">
+              <img src="assets/buahseru-brand.png" alt="Buah-Seru brand identity logo" loading="lazy" />
+              <figcaption>Brand &amp; identity</figcaption>
+            </figure>
+            <div class="project__info">
+              <p class="project__no">Project 04</p>
+              <h3 class="project__title">Buah-Seru</h3>
+              <p class="project__sub">Fruit-Recognition Educational App for Children</p>
+              <p>Buah-Seru is a playful app that helps kids learn about fruit: snap a photo, and it tells you what fruit it is along with a few fun facts. Behind the scenes it uses OpenCV (GrabCut) to clean up the image, a CNN trained in TensorFlow to classify it, and TensorFlow Lite + Flutter to run it on a phone.</p>
+              <p class="muted">Buah-Seru aplikasi seru untuk mengenalkan buah ke anak-anak: foto buahnya, lalu muncul namanya plus info singkat. Ada OpenCV (GrabCut), CNN (TensorFlow), dan TensorFlow Lite + Flutter supaya jalan di HP.</p>
+              <ul class="checks">
+                <li>CNN classifier deployed on-device (TF Lite)</li>
+                <li>OpenCV GrabCut object segmentation</li>
+                <li>Interactive, gamified learning experience</li>
+              </ul>
+              <ul class="chips chips--sm">
+                <li>Python</li><li>OpenCV</li><li>TensorFlow</li><li>TF Lite</li><li>CNN</li><li>GrabCut</li><li>Flutter</li><li>Dart</li>
+              </ul>
+              <a class="repo" href="https://github.com/khaichi11/Aplikasi-Deteksi-Buah-CNN" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                github.com/khaichi11/Aplikasi-Deteksi-Buah-CNN
+              </a>
+            </div>
+          </div>
+          <div class="docs">
+            <p class="docs__label">Documentation <span>· Dokumentasi</span></p>
+            <div class="docs__grid docs__grid--3">
+              <figure class="doc"><img src="assets/buahseru-welcome.png" alt="Buah-Seru welcome screen with a fruit quiz" loading="lazy" /><figcaption>Welcome screen</figcaption></figure>
+              <figure class="doc"><img src="assets/buahseru-quiz.png" alt="Buah-Seru quiz — identify the fruit" loading="lazy" /><figcaption>Quiz · identify the fruit</figcaption></figure>
+              <figure class="doc"><img src="assets/buahseru-result.png" alt="Buah-Seru result screen with nutrition facts" loading="lazy" /><figcaption>Result &amp; nutrition facts</figcaption></figure>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05 K-Means -->
+        <article class="project reveal" id="kmeans">
+          <div class="project__main">
+            <figure class="project__hero project__hero--doc">
+              <img src="assets/kmeans-hero.png" alt="K-Means from scratch notebook — problem framing and method" loading="lazy" />
+              <figcaption>Notebook · problem framing &amp; method</figcaption>
+            </figure>
+            <div class="project__info">
+              <p class="project__no">Project 05</p>
+              <h3 class="project__title">K-Means from Scratch</h3>
+              <p class="project__sub">Clustering for Waste Sorting · Implemented Manually</p>
+              <p>For this one I wrote K-Means clustering by hand in <strong>Python, no scikit-learn</strong>, just to really understand how it works underneath. I used pandas and NumPy for the data and the distance maths, and matplotlib to visualise the clusters and make sense of the waste-sorting patterns.</p>
+              <p class="muted">Yang ini saya tulis sendiri algoritma K-Means di Python, tanpa scikit-learn, supaya benar-benar paham cara kerjanya. pandas &amp; NumPy untuk data dan jarak, matplotlib untuk visualisasi cluster.</p>
+              <ul class="checks">
+                <li>K-Means implemented from scratch (no scikit-learn)</li>
+                <li>Vectorised distance computation with NumPy</li>
+                <li>Cluster visualisation &amp; data-pattern analysis</li>
+              </ul>
+              <ul class="chips chips--sm">
+                <li>Python</li><li>pandas</li><li>NumPy</li><li>matplotlib</li><li>Anaconda</li><li>From scratch</li>
+              </ul>
+              <a class="repo" href="https://github.com/khaichi11/Code-on-College/blob/main/Semester%204/Sistem-Cerdas/K_Means_Pemilah_Sampah.ipynb" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                Code-on-College · K_Means_Pemilah_Sampah.ipynb
+              </a>
+            </div>
+          </div>
+          <div class="docs">
+            <p class="docs__label">Documentation <span>· Dokumentasi</span></p>
+            <div class="docs__grid docs__grid--4">
+              <figure class="doc"><img class="zoomable" src="assets/kmeans-dataset.png" alt="Dataset construction code for the K-Means project" loading="lazy" /><figcaption>Dataset construction</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/kmeans-algo.png" alt="Manual K-Means algorithm implementation" loading="lazy" /><figcaption>Manual K-Means algorithm</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/kmeans-jan.png" alt="Clustering result for January" loading="lazy" /><figcaption>Clustering result · January</figcaption></figure>
+              <figure class="doc"><img class="zoomable" src="assets/kmeans-feb.png" alt="Clustering result for February" loading="lazy" /><figcaption>Clustering result · February</figcaption></figure>
+            </div>
+          </div>
+        </article>
+
+        <!-- 06 PANDAI -->
+        <article class="project project--reverse reveal" id="pandai">
+          <div class="project__main">
+            <figure class="project__hero project__hero--doc">
+              <img src="assets/pandai-hero.png" alt="PANDAI app concept and identity" loading="lazy" />
+              <figcaption>App concept &amp; identity</figcaption>
+            </figure>
+            <div class="project__info">
+              <p class="project__no">Project 06 <span class="tag tag--gold">MVP · Working Prototype</span></p>
+              <h3 class="project__title">PANDAI</h3>
+              <p class="project__sub">Plant Identification with Artificial Intelligence</p>
+              <p>PANDAI is an Android app that helps primary-school kids get past 'plant blindness' by letting them identify plants in real time, with a bit of gamified learning to keep it fun. It's built with Flutter and Firebase, with a MobileNet model running through TensorFlow Lite, and it ties into SDG 4 and SDG 15. <strong>The core flow already works end to end — an MVP rather than a final release.</strong></p>
+              <p class="muted">PANDAI aplikasi Android untuk membantu anak SD mengenal tanaman lewat identifikasi real-time, dengan sentuhan gamifikasi. Dibangun dengan Flutter, Firebase, dan MobileNet lewat TensorFlow Lite, selaras dengan SDG 4 &amp; SDG 15. Alur utamanya sudah berjalan, jadi masih MVP.</p>
+              <ul class="checks">
+                <li>MobileNet image classifier via TensorFlow Lite</li>
+                <li>Flutter app with Firebase &amp; Supabase backend</li>
+                <li>Aligned with SDG 4 &amp; SDG 15</li>
+              </ul>
+              <ul class="chips chips--sm">
+                <li>Flutter</li><li>TensorFlow</li><li>Python</li><li>Firebase</li><li>Supabase</li><li>MobileNet</li><li>TF Lite</li>
+              </ul>
+              <a class="repo" href="https://github.com/khaichi11/Mobile-APP-Plant-Detection-Mobilenet" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                github.com/khaichi11/Mobile-APP-Plant-Detection-Mobilenet
+              </a>
+            </div>
+          </div>
+          <div class="docs">
+            <p class="docs__label">Documentation <span>· Dokumentasi</span></p>
+            <div class="docs__grid docs__grid--4">
+              <figure class="doc"><img src="assets/pandai-nav.png" alt="PANDAI home, settings and profile screens" loading="lazy" /><figcaption>Home &amp; navigation</figcaption></figure>
+              <figure class="doc"><img src="assets/pandai-scan.png" alt="Scanning a real plant with the PANDAI camera" loading="lazy" /><figcaption>Scanning a plant</figcaption></figure>
+              <figure class="doc"><img src="assets/pandai-result.png" alt="PANDAI real-time plant identification result" loading="lazy" /><figcaption>Identification result</figcaption></figure>
+              <figure class="doc"><img src="assets/pandai-collection.png" alt="PANDAI saved plant collection and plant detail" loading="lazy" /><figcaption>Collection &amp; detail</figcaption></figure>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section class="section section--alt" id="certifications">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow"><span class="dot"></span> Certifications &amp; Training <span class="sub">· Sertifikasi &amp; Pelatihan</span></p>
+          <h2 class="section__title">Always picking up something new.</h2>
+        </div>
+
+        <div class="certs">
+          <figure class="cert reveal">
+            <div class="cert__img"><img class="zoomable" src="assets/cert-udemy.png" alt="Udemy certificate — Complete A.I. & Machine Learning, Data Science Bootcamp" loading="lazy" /></div>
+            <figcaption><strong>Complete A.I. &amp; Machine Learning, Data Science Bootcamp</strong><span>Udemy</span></figcaption>
+          </figure>
+          <figure class="cert reveal" data-delay="1">
+            <div class="cert__img"><img class="zoomable" src="assets/cert-dicoding-ai.png" alt="Dicoding certificate — Belajar Dasar AI" loading="lazy" /></div>
+            <figcaption><strong>Belajar Dasar AI</strong><span>Dicoding Indonesia</span></figcaption>
+          </figure>
+          <figure class="cert reveal" data-delay="2">
+            <div class="cert__img"><img class="zoomable" src="assets/cert-dicoding-viz.png" alt="Dicoding certificate — Belajar Dasar Visualisasi Data" loading="lazy" /></div>
+            <figcaption><strong>Belajar Dasar Visualisasi Data</strong><span>Dicoding Indonesia</span></figcaption>
+          </figure>
+          <figure class="cert reveal">
+            <div class="cert__img"><img class="zoomable" src="assets/cert-ta-basicprog.png" alt="Teaching Assistant certificate — Basic Programming, FILKOM UB" loading="lazy" /></div>
+            <figcaption><strong>Teaching Assistant · Basic Programming</strong><span>FILKOM, Universitas Brawijaya</span></figcaption>
+          </figure>
+          <figure class="cert reveal" data-delay="1">
+            <div class="cert__img"><img class="zoomable" src="assets/cert-ta-dsa.png" alt="Teaching Assistant certificate — Data Structures & Algorithms, FILKOM UB" loading="lazy" /></div>
+            <figcaption><strong>Teaching Assistant · Data Structures &amp; Algorithms</strong><span>FILKOM, Universitas Brawijaya</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section--contact" id="contact">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow eyebrow--gold">Let's connect <span class="sub">· Mari Terhubung</span></p>
+          <h2 class="contact__title">Let's build something<br />together.</h2>
+        </div>
+
+        <div class="contact__grid reveal">
+          <a class="contact__item" href="mailto:khairuramdhani@student.ub.ac.id">
+            <span class="contact__k">Email</span>
+            <span class="contact__v">khairuramdhani@student.ub.ac.id</span>
+          </a>
+          <a class="contact__item" href="https://linkedin.com/in/khairuramdhani" target="_blank" rel="noopener">
+            <span class="contact__k">LinkedIn</span>
+            <span class="contact__v">linkedin.com/in/khairuramdhani</span>
+          </a>
+          <a class="contact__item" href="https://github.com/khaichi11" target="_blank" rel="noopener">
+            <span class="contact__k">GitHub</span>
+            <span class="contact__v">github.com/khaichi11</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© <span id="year"></span> Khairuramdhani</span>
+      <a href="#hero" class="footer__top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" id="lightbox-close" aria-label="Close">×</button>
+    <img id="lightbox-img" src="" alt="" />
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

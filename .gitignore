@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Vercel
+.vercel
+
+# Build helpers (not needed in repo)
+_extract/
+_extract.py
+_rename.py
+*.log

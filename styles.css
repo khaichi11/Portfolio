@@ -362,10 +362,27 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
    CONTACT
    ============================================================ */
 .section--contact {
-  position: relative; color: #d6e2ef;
+  position: relative; color: #d6e2ef; background: #081320;
+}
+/* Universitas Brawijaya campus backdrop — slow Ken Burns drift + navy overlay */
+.contact__bg {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden;
+  background: url("assets/ub-campus.jpg") center 30% / cover no-repeat;
+  transform: scale(1.08);
+  /* lean into the soft source: deliberate bokeh + warm grade */
+  filter: blur(3px) saturate(1.18) brightness(.92);
+  animation: kenburns 34s ease-in-out infinite alternate;
+}
+.contact__bg::after {
+  content: ""; position: absolute; inset: 0;
   background:
-    radial-gradient(900px 500px at 15% 0%, rgba(226,163,42,.12), transparent 55%),
-    linear-gradient(160deg, var(--deep-2), #0b1f33);
+    radial-gradient(760px 400px at 16% -5%, rgba(226, 163, 42, .24), transparent 60%),
+    linear-gradient(168deg, rgba(11, 28, 47, .64) 0%, rgba(9, 22, 38, .82) 55%, rgba(6, 15, 26, .94) 100%),
+    radial-gradient(130% 130% at 50% 38%, transparent 55%, rgba(3, 9, 17, .62)); /* vignette */
+}
+@keyframes kenburns {
+  from { transform: scale(1.08) translateY(0); }
+  to   { transform: scale(1.17) translateY(-1.5%); }
 }
 .contact__title { color: #fff; font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 700; margin-top: .9rem; }
 .contact__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); overflow: hidden; margin-top: 2.5rem; }
@@ -373,6 +390,49 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 .contact__item:hover { background: rgba(226,163,42,.12); }
 .contact__k { display: block; font-family: var(--ff-head); font-weight: 600; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: .35rem; }
 .contact__v { color: #eaf1f8; font-size: 1.02rem; overflow-wrap: anywhere; }
+
+/* ---- Contact form ---- */
+.contact__form {
+  max-width: 680px; margin: 2.2rem auto 0; display: grid; gap: 1.05rem;
+  padding: 1.7rem 1.7rem 1.9rem; border-radius: 20px;
+  background: rgba(9, 21, 36, .55); border: 1px solid rgba(255, 255, 255, .1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .35);
+  -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
+}
+.form__lead { font-family: var(--ff-head); font-weight: 600; color: #eaf1f8; font-size: 1.06rem; }
+.form__lead .sub { color: #8aa0b6; font-weight: 500; font-size: .9rem; }
+.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.05rem; }
+.form__field { display: grid; gap: .42rem; }
+.form__label { font-family: var(--ff-head); font-weight: 600; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.form__opt { color: #7c8b9a; font-weight: 500; letter-spacing: .04em; text-transform: none; }
+.contact__form input[type="text"],
+.contact__form input[type="email"],
+.contact__form textarea {
+  width: 100%; font-family: var(--ff-body); font-size: .98rem; color: #f3f7fb;
+  background: rgba(255, 255, 255, .04); border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 12px; padding: .8rem 1rem;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+}
+.contact__form input::placeholder,
+.contact__form textarea::placeholder { color: #6f8398; }
+.contact__form input:focus,
+.contact__form textarea:focus {
+  outline: none; border-color: var(--gold); background: rgba(255, 255, 255, .06);
+  box-shadow: 0 0 0 3px rgba(226, 163, 42, .15);
+}
+.contact__form textarea { resize: vertical; min-height: 120px; }
+.form__honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.form__actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.btn--gold { background: var(--gold); color: #1b1407; border: none; box-shadow: var(--shadow-sm); }
+.btn--gold:hover { background: var(--gold-soft); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.btn--gold[disabled] { opacity: .6; cursor: not-allowed; transform: none; box-shadow: none; }
+.form__status { font-size: .92rem; min-height: 1.2em; color: #b9c8d8; }
+.form__status.is-ok { color: #7ee0a8; }
+.form__status.is-err { color: #ff9b8a; }
+@media (max-width: 620px) {
+  .form__row { grid-template-columns: 1fr; }
+  .contact__form { padding: 1.2rem 1.1rem 1.4rem; }
+}
 
 .availability {
   display: inline-flex; align-items: center; gap: .6rem; margin-top: 2rem;
@@ -478,7 +538,11 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
   transition: transform .8s cubic-bezier(.2, .75, .25, 1); transform-style: preserve-3d;
 }
 .flip--cert .flip__inner { aspect-ratio: 4 / 3; }
-.flip:hover .flip__inner,
+/* hover-to-flip only on devices that truly hover (desktop);
+   touch devices flip on tap via .flipped so they don't get stuck */
+@media (hover: hover) {
+  .flip:hover .flip__inner { transform: rotateY(180deg); }
+}
 .flip:focus-visible .flip__inner,
 .flip.flipped .flip__inner { transform: rotateY(180deg); }
 .flip__face {
@@ -512,8 +576,8 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 }
 .section--dark::before { width: 440px; height: 440px; background: rgba(226, 163, 42, .22); top: -130px; right: -90px; animation: blobA 15s ease-in-out infinite; }
 .section--dark::after  { width: 520px; height: 520px; background: rgba(43, 108, 176, .42); bottom: -180px; left: -130px; animation: blobB 19s ease-in-out infinite; }
-.section--contact::before { width: 380px; height: 380px; background: rgba(226, 163, 42, .20); top: -110px; left: -70px; animation: blobA 17s ease-in-out infinite; }
-.section--contact::after  { width: 440px; height: 440px; background: rgba(43, 108, 176, .38); bottom: -150px; right: -90px; animation: blobB 21s ease-in-out infinite; }
+/* contact uses the campus photo instead of floating blobs */
+.section--contact::before, .section--contact::after { display: none; }
 @keyframes blobA { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-26px, 28px) scale(1.12); } }
 @keyframes blobB { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(34px, -22px) scale(1.1); } }
 
@@ -521,6 +585,14 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 .project__hero, .hero__photo { transition: transform .35s var(--ease), box-shadow .35s var(--ease); will-change: transform; }
 .project__hero img { transition: transform .6s var(--ease); }
 .project__hero:hover img { transform: scale(1.05); }
+
+/* --- dramatic hero photo entrance on first load --- */
+.hero__media--in { animation: heroIn 1.15s cubic-bezier(.2, .75, .25, 1) .15s both; }
+@keyframes heroIn {
+  0%   { opacity: 0; transform: translateX(64px) scale(.82) rotate(5deg); filter: blur(12px); }
+  55%  { filter: blur(0); }
+  100% { opacity: 1; transform: none; filter: none; }
+}
 
 /* --- directional slide-in for projects --- */
 .project.reveal { transform: translateX(-46px); }
@@ -542,13 +614,20 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
   .project.reveal, .project--reverse.reveal { transform: none !important; }
 }
 
+/* shown only in the printed/PDF CV, hidden on the live site */
+.print-only { display: none; }
+
 /* ============================================================
    PRINT / PDF  (open with ?print or #print, then "Save as PDF")
    ============================================================ */
 @media print {
   @page { margin: 12mm; }
+  .print-only { display: block !important; }
+  .hero__printlink { font-size: .92rem; color: #1d4e80 !important; margin-top: .6rem; }
+  .hero__printlink a { color: #1d4e80 !important; text-decoration: underline; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .progress, .nav, .lightbox, .footer__top, .flip__front::after, .hero__actions { display: none !important; }
+  .progress, .nav, .lightbox, .footer__top, .flip__front::after, .hero__actions,
+  .contact__form, .contact__bg { display: none !important; }
   html { scroll-behavior: auto; }
   body { color: #1a2733; }
   .reveal { opacity: 1 !important; transform: none !important; }
@@ -578,8 +657,20 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
   .flip__back .issuer { color: #9a6f12 !important; }
   .flip__back span { color: #44545f !important; }
 
+  /* keep the web design's structure & accents on paper */
+  .skill-card, .cert, .stat, .info-card, .doc, .timeline__item, .hero__photo {
+    border: 1px solid #e3e9f1 !important; box-shadow: none !important; border-radius: 10px !important;
+  }
+  .eyebrow, .eyebrow--gold, .timeline__date, .project__no, .docs__label { color: #b07d12 !important; }
+  .section__title, .hero__name, .about__text strong { color: #15293f !important; }
+  .hero__role { color: #1d4e80 !important; }
+  .tag, .chips li, .chips--sm li { background: #eef2f8 !important; color: #1d4e80 !important; border: 1px solid #dde5ef !important; }
+  .stat__num { color: #1d4e80 !important; }
+
   /* avoid ugly page breaks */
   .project, .skill-card, .cert, .doc, .timeline__item, .stat, .info-card { break-inside: avoid; }
+  h2, .section__head, .project__no, .project__title { break-after: avoid; }
   .project__main, .project--reverse .project__main { grid-template-columns: 1fr 1.3fr !important; }
   .project--reverse .project__hero { order: 0; }
+  img { max-width: 100% !important; }
 }

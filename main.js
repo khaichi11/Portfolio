@@ -118,9 +118,17 @@
   if (reduceMotion || !("IntersectionObserver" in window)) {
     reveals.forEach((el) => el.classList.add("is-visible"));
   } else {
-    const io = new IntersectionObserver((entries, obs) => {
+    // Replay on every entry (not one-shot) so animations re-fire when you scroll back.
+    const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add("is-visible"); obs.unobserve(e.target); }
+        const d = parseInt(e.target.dataset.delay, 10);
+        if (e.isIntersecting) {
+          e.target.style.transitionDelay = d ? d * 80 + "ms" : "0ms";
+          e.target.classList.add("is-visible");
+        } else {
+          e.target.style.transitionDelay = "0ms";
+          e.target.classList.remove("is-visible");
+        }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
     reveals.forEach((el) => io.observe(el));
@@ -228,5 +236,43 @@
   if (location.search.indexOf("print") > -1 || location.hash.indexOf("print") > -1) {
     preparePrint();
     window.addEventListener("load", function () { setTimeout(function () { window.print(); }, 900); });
+  }
+  // CV print is intentionally private (no public button) — open with ?print or #print.
+
+  /* ---------- Contact form → Google Sheet (Apps Script) ---------- */
+  const form = document.getElementById("contact-form");
+  if (form) {
+    // Tempel "Web app URL" dari Apps Script kamu (…/exec). Setup: CONTACT_FORM_SETUP.md
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6dywT_dtBwSy4Xn5XJJpWpdNkfHzFIZvr_2AvxeQPW16eizmTgt9_uMQBNiBM4z6IIA/exec";
+    const statusEl = document.getElementById("form-status");
+    const submitBtn = document.getElementById("form-submit");
+
+    function setStatus(msg, kind) {
+      statusEl.textContent = msg;
+      statusEl.className = "form__status" + (kind ? " is-" + kind : "");
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (SCRIPT_URL.indexOf("PASTE_") === 0) {
+        setStatus("Form belum dikonfigurasi — pasang URL Apps Script dulu.", "err");
+        return;
+      }
+      setStatus("Mengirim…", "");
+      submitBtn.disabled = true;
+
+      fetch(SCRIPT_URL, { method: "POST", body: new FormData(form) })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data && data.result === "success") {
+            form.reset();
+            setStatus("Terkirim! Terima kasih — pesanmu sudah masuk. 🙌", "ok");
+          } else {
+            setStatus((data && data.message) || "Gagal mengirim. Coba lagi nanti.", "err");
+          }
+        })
+        .catch(function () { setStatus("Gagal terhubung. Cek koneksi lalu coba lagi.", "err"); })
+        .finally(function () { submitBtn.disabled = false; });
+    });
   }
 })();

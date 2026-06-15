@@ -78,9 +78,15 @@
             <li><a href="mailto:khairuramdhani@student.ub.ac.id">khairuramdhani@student.ub.ac.id</a></li>
             <li><a href="https://github.com/khaichi11" target="_blank" rel="noopener">github.com/khaichi11</a></li>
           </ul>
+
+          <!-- Only appears in the printed/PDF CV — points recipients to the live, interactive site -->
+          <p class="print-only hero__printlink">
+            Versi interaktif &middot; Interactive portfolio:
+            <a href="https://khaichi11.github.io/Portfolio/">khaichi11.github.io/Portfolio</a>
+          </p>
         </div>
 
-        <div class="hero__media reveal" data-delay="3">
+        <div class="hero__media hero__media--in">
           <div class="hero__panel" aria-hidden="true"></div>
           <div class="hero__photo">
             <img src="assets/profile.jpg" alt="Portrait of Khairuramdhani" width="540" height="810" />
@@ -552,6 +558,7 @@
 
     <!-- CONTACT -->
     <section class="section section--contact" id="contact">
+      <div class="contact__bg" aria-hidden="true"></div>
       <div class="container">
         <div class="section__head reveal">
           <p class="eyebrow eyebrow--gold">Let's connect <span class="sub">· Mari Terhubung</span></p>
@@ -572,6 +579,35 @@
             <span class="contact__v">github.com/khaichi11</span>
           </a>
         </div>
+
+        <!-- Message form → Google Sheet (via Apps Script). Setup: CONTACT_FORM_SETUP.md -->
+        <form class="contact__form reveal" id="contact-form" data-delay="2" autocomplete="on">
+          <p class="form__lead">Atau tinggalkan pesan <span class="sub">· Or leave a message</span></p>
+
+          <!-- Honeypot anti-spam — biarkan kosong; disembunyikan dari manusia -->
+          <input type="text" name="company" class="form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <div class="form__row">
+            <label class="form__field">
+              <span class="form__label">Nama</span>
+              <input type="text" name="name" required maxlength="100" placeholder="Nama kamu" autocomplete="name" />
+            </label>
+            <label class="form__field">
+              <span class="form__label">Email <span class="form__opt">opsional</span></span>
+              <input type="email" name="email" maxlength="120" placeholder="email@kamu.com" autocomplete="email" />
+            </label>
+          </div>
+
+          <label class="form__field">
+            <span class="form__label">Pesan</span>
+            <textarea name="message" rows="4" required maxlength="2000" placeholder="Tulis pesan kamu di sini…"></textarea>
+          </label>
+
+          <div class="form__actions">
+            <button type="submit" class="btn btn--gold" id="form-submit">Kirim pesan</button>
+            <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
 
       </div>
     </section>

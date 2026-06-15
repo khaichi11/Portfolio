@@ -243,7 +243,7 @@
   const form = document.getElementById("contact-form");
   if (form) {
     // Tempel "Web app URL" dari Apps Script kamu (…/exec). Setup: CONTACT_FORM_SETUP.md
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6dywT_dtBwSy4Xn5XJJpWpdNkfHzFIZvr_2AvxeQPW16eizmTgt9_uMQBNiBM4z6IIA/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwNTmZIUqTJG7q7ZkVhOt7GpOQkwGRpHFrRYjx6_ufCwmkr0l36x-v7OrCeCVDAtLrKTA/exec";
     const statusEl = document.getElementById("form-status");
     const submitBtn = document.getElementById("form-submit");
 

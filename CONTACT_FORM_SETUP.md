@@ -44,6 +44,15 @@ function doPost(e) {
       return _json({ result: "error", message: "Nama dan pesan wajib diisi." });
     }
 
+    // Moderasi server-side (tak bisa di-bypass dari browser).
+    // Daftar kata yang diblokir: ISI SENDIRI di bawah. File ini tinggal di Apps Script-mu
+    // (PRIVAT, tidak ikut ke GitHub), jadi kata-katanya tak akan terlihat di repo publik.
+    const BAD_WORDS = []; // contoh: ["kata1", "kata2"] — kosongkan kalau tak mau filter kata
+    const LINK = /(https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|org|id|co|io|xyz|ru|info|link|biz|top|site|app)\b)/i;
+    const BAD = BAD_WORDS.length ? new RegExp("\\b(" + BAD_WORDS.join("|") + ")\\b", "i") : null;
+    if (LINK.test(message)) return _json({ result: "error", message: "Link tidak diperbolehkan di pesan." });
+    if (BAD && (BAD.test(message) || BAD.test(name))) return _json({ result: "error", message: "Mohon gunakan bahasa yang sopan." });
+
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
     sheet.appendRow([new Date(), name, email, message]);
 

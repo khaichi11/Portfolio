@@ -252,12 +252,33 @@
       statusEl.className = "form__status" + (kind ? " is-" + kind : "");
     }
 
+    // Validasi ringan — menyaring sampah/bot; tetap tak bisa menjamin nama asli.
+    function validate() {
+      var val = function (n) { var el = form.elements[n]; return ((el && el.value) || "").trim(); };
+      var name = val("name"), email = val("email"), message = val("message");
+      var letters = (name.match(/\p{L}/gu) || []).length;
+      if (name.length < 2 || letters < 2) return "Isi nama yang valid (minimal 2 huruf).";
+      if (/https?:\/\/|www\.|\.(com|net|org|id|co)\b/i.test(name)) return "Nama kok ada link? Tulis nama saja ya.";
+      if ((name.match(/\d/g) || []).length > letters) return "Nama jangan didominasi angka.";
+      if (name.length > 100) return "Nama terlalu panjang.";
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return "Format email belum benar.";
+      if (message.length < 5) return "Pesannya terlalu pendek — tulis sedikit lebih lengkap ya.";
+      if (message.length > 2000) return "Pesan terlalu panjang (maks 2000 karakter).";
+      var LINK = /(https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|org|id|co|io|xyz|ru|info|link|biz|top|site|app)\b)/i;
+      if (LINK.test(message)) return "Maaf, link/URL tidak diperbolehkan di pesan — biar tetap aman & bersih.";
+      // Penyaringan kata kasar dilakukan di sisi server (Apps Script, privat) supaya
+      // daftar katanya tidak terekspos di source code publik ini.
+      return null;
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (SCRIPT_URL.indexOf("PASTE_") === 0) {
         setStatus("Form belum dikonfigurasi — pasang URL Apps Script dulu.", "err");
         return;
       }
+      var problem = validate();
+      if (problem) { setStatus(problem, "err"); return; }
       setStatus("Mengirim…", "");
       submitBtn.disabled = true;
 

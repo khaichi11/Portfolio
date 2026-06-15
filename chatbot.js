@@ -1,8 +1,8 @@
 /* ============================================================
-   Khairu's Assistant — lightweight retrieval chatbot
+   Khai's Assistant — lightweight retrieval chatbot
    Runs 100% in the visitor's browser: no model download, no
    backend, no API key, no account. It matches the question to a
-   curated knowledge base about Khairu, so it is instant and can
+   curated knowledge base about Khai, so it is instant and can
    never hallucinate (answers always come from the data below).
    ============================================================ */
 (function () {
@@ -20,20 +20,20 @@
   // Each entry: k = keywords (id+en), id/en = answer in that language.
   var ENTRIES = [
     { k: ["halo", "hai", "hi", "hello", "hey", "pagi", "siang", "malam", "assalamualaikum"],
-      id: "Hai! 👋 Aku asisten portofolio Khairu. Bisa tanya soal skill, proyek, pengalaman, pendidikan, sertifikasi, atau cara menghubunginya. Mau mulai dari mana?",
-      en: "Hi! 👋 I'm Khairu's portfolio assistant. Ask me about his skills, projects, experience, education, certifications, or how to reach him. Where shall we start?" },
+      id: "Hai! 👋 Aku asisten portofolio Khai. Bisa tanya soal skill, proyek, pengalaman, pendidikan, sertifikasi, atau cara menghubunginya. Mau mulai dari mana?",
+      en: "Hi! 👋 I'm Khai's portfolio assistant. Ask me about his skills, projects, experience, education, certifications, or how to reach him. Where shall we start?" },
 
     { k: ["siapa", "tentang", "about", "who", "profil", "profile", "kenalan", "khairu", "orangnya", "dia siapa"],
-      id: "Khairuramdhani (panggil Khairu) — AI/ML & Software Engineer, mahasiswa Teknik Komputer di Universitas Brawijaya. Paling fokus ke Computer Vision, tapi nyaman juga di machine learning, data, IoT/embedded, dan mobile. Biasa pakai Python & C++, dan bikin app mobile dengan Flutter — proyeknya digarap end-to-end dari data sampai jalan di perangkat nyata.",
-      en: "Khairuramdhani (Khairu) — an AI/ML & Software Engineer and Computer Engineering student at Universitas Brawijaya. His main focus is Computer Vision, but he's also at home with ML, data, IoT/embedded, and mobile. He works mainly in Python & C++ and builds mobile apps with Flutter — taking projects end-to-end from data to running on real devices." },
+      id: "Khairuramdhani (panggil Khai) — AI/ML & Software Engineer, mahasiswa Teknik Komputer di Universitas Brawijaya. Paling fokus ke Computer Vision, tapi nyaman juga di machine learning, data, IoT/embedded, dan mobile. Biasa pakai Python & C++, dan bikin app mobile dengan Flutter — proyeknya digarap end-to-end dari data sampai jalan di perangkat nyata.",
+      en: "Khairuramdhani (Khai) — an AI/ML & Software Engineer and Computer Engineering student at Universitas Brawijaya. His main focus is Computer Vision, but he's also at home with ML, data, IoT/embedded, and mobile. He works mainly in Python & C++ and builds mobile apps with Flutter — taking projects end-to-end from data to running on real devices." },
 
     { k: ["skill", "keahlian", "kemampuan", "bisa apa", "kuasai", "teknologi", "stack", "tools", "bahasa pemrograman", "programming", "framework", "tech"],
-      id: "Skill utama Khairu:\n• Bahasa: Python, C++, Dart, JavaScript\n• AI/ML: PyTorch, TensorFlow, scikit-learn, YOLO, CNN, SVM\n• Computer Vision: OpenCV, deteksi real-time, segmentasi, on-device (TF Lite)\n• Mobile: Flutter, Firebase, Supabase\n• Embedded/IoT: ESP32, Arduino, FreeRTOS, sensor, RTC\n• Data: pandas, NumPy, matplotlib, seaborn\n• Tools: Git, Linux, Anaconda, Weights & Biases",
-      en: "Khairu's core skills:\n• Languages: Python, C++, Dart, JavaScript\n• AI/ML: PyTorch, TensorFlow, scikit-learn, YOLO, CNN, SVM\n• Computer Vision: OpenCV, real-time detection, segmentation, on-device (TF Lite)\n• Mobile: Flutter, Firebase, Supabase\n• Embedded/IoT: ESP32, Arduino, FreeRTOS, sensors, RTC\n• Data: pandas, NumPy, matplotlib, seaborn\n• Tools: Git, Linux, Anaconda, Weights & Biases" },
+      id: "Skill utama Khai:\n• Bahasa: Python, C++, Dart, JavaScript\n• AI/ML: PyTorch, TensorFlow, scikit-learn, YOLO, CNN, SVM\n• Computer Vision: OpenCV, deteksi real-time, segmentasi, on-device (TF Lite)\n• Mobile: Flutter, Firebase, Supabase\n• Embedded/IoT: ESP32, Arduino, FreeRTOS, sensor, RTC\n• Data: pandas, NumPy, matplotlib, seaborn\n• Tools: Git, Linux, Anaconda, Weights & Biases",
+      en: "Khai's core skills:\n• Languages: Python, C++, Dart, JavaScript\n• AI/ML: PyTorch, TensorFlow, scikit-learn, YOLO, CNN, SVM\n• Computer Vision: OpenCV, real-time detection, segmentation, on-device (TF Lite)\n• Mobile: Flutter, Firebase, Supabase\n• Embedded/IoT: ESP32, Arduino, FreeRTOS, sensors, RTC\n• Data: pandas, NumPy, matplotlib, seaborn\n• Tools: Git, Linux, Anaconda, Weights & Biases" },
 
     { k: ["pengalaman", "experience", "kerja", "work", "magang", "intern", "internship", "aitf", "komdigi", "job", "career", "asisten", "teaching assistant"],
-      id: "Pengalaman Khairu:\n• AI Engineer Intern @ AITF (Feb 2026–sekarang) — program nasional kolaborasi Komdigi × Universitas Brawijaya. Bikin pipeline anotasi data semi-otomatis pakai Vision-Language Models, pipeline deep learning end-to-end untuk Computer Vision, dan fine-tuning LLM.\n• Asisten Praktikum — Struktur Data & Algoritma serta Pemrograman Dasar (2024/2025) di FILKOM UB (ngajar lab C++, review tugas).",
-      en: "Khairu's experience:\n• AI Engineer Intern @ AITF (Feb 2026–present) — a national program, a Komdigi × Universitas Brawijaya collaboration. Built a semi-automatic data-annotation pipeline with Vision-Language Models, end-to-end deep-learning pipelines for Computer Vision, and fine-tuned LLMs.\n• Teaching Assistant — Data Structures & Algorithms and Basic Programming (2024/2025) at FILKOM UB (C++ labs, assignment reviews)." },
+      id: "Pengalaman Khai:\n• AI Engineer Intern @ AITF (Feb 2026–sekarang) — program nasional kolaborasi Komdigi × Universitas Brawijaya. Bikin pipeline anotasi data semi-otomatis pakai Vision-Language Models, pipeline deep learning end-to-end untuk Computer Vision, dan fine-tuning LLM.\n• Asisten Praktikum — Struktur Data & Algoritma serta Pemrograman Dasar (2024/2025) di FILKOM UB (ngajar lab C++, review tugas).",
+      en: "Khai's experience:\n• AI Engineer Intern @ AITF (Feb 2026–present) — a national program, a Komdigi × Universitas Brawijaya collaboration. Built a semi-automatic data-annotation pipeline with Vision-Language Models, end-to-end deep-learning pipelines for Computer Vision, and fine-tuned LLMs.\n• Teaching Assistant — Data Structures & Algorithms and Basic Programming (2024/2025) at FILKOM UB (C++ labs, assignment reviews)." },
 
     { k: ["pendidikan", "education", "kuliah", "sekolah", "kampus", "universitas", "brawijaya", "sma", "study", "degree", "jurusan", "background"],
       id: "Pendidikan: S1 Teknik Komputer, Universitas Brawijaya, Malang (Agu 2023–sekarang). SMA: SMAN 1 Sindang, Indramayu (jurusan IPA).",
@@ -72,16 +72,16 @@
       en: "Certifications & training:\n• Complete A.I. & Machine Learning, Data Science Bootcamp (Udemy)\n• Belajar Dasar AI (Dicoding)\n• Belajar Dasar Visualisasi Data (Dicoding)\n• Teaching Assistant · Basic Programming (FILKOM UB)\n• Teaching Assistant · Data Structures & Algorithms (FILKOM UB)" },
 
     { k: ["kontak", "contact", "email", "hubungi", "reach", "linkedin", "github", "sosial", "social", "mail", "menghubungi"],
-      id: "Cara menghubungi Khairu:\n• Email: khairuramdhani@student.ub.ac.id\n• GitHub: github.com/khaichi11\n• LinkedIn: linkedin.com/in/khairuramdhani\nAtau tinggalkan pesan lewat form di bagian Contact halaman ini 🙂",
-      en: "How to reach Khairu:\n• Email: khairuramdhani@student.ub.ac.id\n• GitHub: github.com/khaichi11\n• LinkedIn: linkedin.com/in/khairuramdhani\nOr drop a message via the form in the Contact section of this page 🙂" },
+      id: "Cara menghubungi Khai:\n• Email: khairuramdhani@student.ub.ac.id\n• GitHub: github.com/khaichi11\n• LinkedIn: linkedin.com/in/khairuramdhani\nAtau tinggalkan pesan lewat form di bagian Contact halaman ini 🙂",
+      en: "How to reach Khai:\n• Email: khairuramdhani@student.ub.ac.id\n• GitHub: github.com/khaichi11\n• LinkedIn: linkedin.com/in/khairuramdhani\nOr drop a message via the form in the Contact section of this page 🙂" },
 
     { k: ["computer vision", "fokus", "minat", "spesialisasi", "interest", "specialty", "suka apa", "passion"],
-      id: "Minat utama Khairu adalah Computer Vision — deteksi real-time, segmentasi, dan inferensi on-device (TF Lite). Itu benang merah di proyek seperti CERDAS, Buah-Seru, dan PANDAI. Tapi dia juga nyaman di ML klasik, data, IoT, dan mobile.",
-      en: "Khairu's main interest is Computer Vision — real-time detection, segmentation, and on-device inference (TF Lite). That thread runs through projects like CERDAS, Buah-Seru, and PANDAI. He's also comfortable with classic ML, data, IoT, and mobile." },
+      id: "Minat utama Khai adalah Computer Vision — deteksi real-time, segmentasi, dan inferensi on-device (TF Lite). Itu benang merah di proyek seperti CERDAS, Buah-Seru, dan PANDAI. Tapi dia juga nyaman di ML klasik, data, IoT, dan mobile.",
+      en: "Khai's main interest is Computer Vision — real-time detection, segmentation, and on-device inference (TF Lite). That thread runs through projects like CERDAS, Buah-Seru, and PANDAI. He's also comfortable with classic ML, data, IoT, and mobile." },
 
     { k: ["makasih", "terima kasih", "thanks", "thank you", "thx", "mantap", "keren", "nice"],
-      id: "Sama-sama! 🙌 Kalau mau, tanya lagi soal proyek atau skill Khairu, atau langsung hubungi dia lewat bagian Contact ya.",
-      en: "You're welcome! 🙌 Feel free to ask more about Khairu's projects or skills, or reach out via the Contact section." }
+      id: "Sama-sama! 🙌 Kalau mau, tanya lagi soal proyek atau skill Khai, atau langsung hubungi dia lewat bagian Contact ya.",
+      en: "You're welcome! 🙌 Feel free to ask more about Khai's projects or skills, or reach out via the Contact section." }
   ];
 
   function norm(s) {
@@ -135,8 +135,8 @@
     var eng = isEnglish(q);
     if (best && score > 0) return eng ? (best.en || best.id) : best.id;
     return eng
-      ? "I can only chat about Khairu & his portfolio 🙂 Try asking about his skills, projects, experience, education, certifications, or contact."
-      : "Aku cuma bisa cerita seputar Khairu & portofolionya 🙂 Coba tanya soal skill, proyek, pengalaman, pendidikan, sertifikasi, atau cara menghubunginya.";
+      ? "I can only chat about Khai & his portfolio 🙂 Try asking about his skills, projects, experience, education, certifications, or contact."
+      : "Aku cuma bisa cerita seputar Khai & portofolionya 🙂 Coba tanya soal skill, proyek, pengalaman, pendidikan, sertifikasi, atau cara menghubunginya.";
   }
 
   function addMsg(role, text) {

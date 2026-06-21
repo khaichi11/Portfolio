@@ -74,11 +74,13 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
   position: fixed; top: 0; left: 0; right: 0; z-index: 90;
   transition: background .35s var(--ease), box-shadow .35s var(--ease), padding .35s var(--ease);
   padding: .9rem 0;
-}
-.nav.scrolled {
-  background: rgba(255, 255, 255, .82);
+  /* frosted from the start so the lanyard strap passes behind it, not over the links */
+  background: rgba(255, 255, 255, .72);
   backdrop-filter: saturate(180%) blur(14px);
   -webkit-backdrop-filter: saturate(180%) blur(14px);
+}
+.nav.scrolled {
+  background: rgba(255, 255, 255, .85);
   box-shadow: 0 1px 0 var(--border);
   padding: .55rem 0;
 }
@@ -111,18 +113,16 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 .btn {
   position: relative; display: inline-flex; align-items: center; gap: .5rem;
   font-family: var(--ff-head); font-weight: 600; font-size: .95rem;
-  padding: .8rem 1.4rem; border-radius: 13px; border: 2px solid transparent; cursor: pointer;
-  transition: transform .16s var(--ease), box-shadow .16s var(--ease), background .2s, border-color .2s;
+  padding: .82rem 1.5rem; border-radius: 11px; border: 1.5px solid transparent; cursor: pointer;
+  transition: transform .18s var(--ease), box-shadow .22s var(--ease), background .2s, border-color .2s, color .2s;
 }
-/* chunky tactile buttons — a hard offset shadow that "presses down" on click */
-.btn--primary { background: var(--ink); color: #fff; box-shadow: 0 4px 0 0 #0b1d30, 0 13px 22px -8px rgba(16, 42, 67, .42); }
-.btn--primary:hover { background: var(--brand); transform: translateY(-2px); box-shadow: 0 6px 0 0 #0a1a2b, 0 18px 28px -8px rgba(16, 42, 67, .5); }
-.btn--primary:active { transform: translateY(3px); box-shadow: 0 1px 0 0 #0b1d30, 0 6px 12px -6px rgba(16, 42, 67, .35); }
-.btn--ghost { background: #fff; color: var(--ink); border-color: var(--ink); box-shadow: 0 4px 0 0 #d6deea; }
-.btn--ghost:hover { background: #fbfcfe; transform: translateY(-2px); box-shadow: 0 6px 0 0 #ccd6e3; }
-.btn--ghost:active { transform: translateY(3px); box-shadow: 0 1px 0 0 #d6deea; }
-.btn--primary::after, .btn--gold::after { content: "\2192"; font-weight: 700; transition: transform .2s var(--ease); }
-.btn--primary:hover::after, .btn--gold:hover::after { transform: translateX(4px); }
+/* understated, confident buttons — soft shadow, small lift, no gimmicks */
+.btn--primary { background: var(--ink); color: #fff; box-shadow: 0 8px 20px -10px rgba(16, 42, 67, .6); }
+.btn--primary:hover { background: var(--brand); transform: translateY(-2px); box-shadow: 0 14px 26px -10px rgba(16, 42, 67, .55); }
+.btn--primary:active { transform: translateY(0); }
+.btn--ghost { background: transparent; color: var(--ink); border-color: #d2dbe8; }
+.btn--ghost:hover { border-color: var(--ink); background: #f6f8fc; transform: translateY(-2px); }
+.btn--ghost:active { transform: translateY(0); }
 
 .eyebrow {
   font-family: var(--ff-head); font-weight: 600; font-size: .78rem;
@@ -174,82 +174,38 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 .hero__contact a { position: relative; transition: color .2s; }
 .hero__contact a:hover { color: var(--brand); }
 
-/* ---------- hero media — hanging lanyard ID card (hung from the top, swings) ---------- */
+/* ---------- hero media — lanyard ID card on two live straps (drag → straps follow) ---------- */
 .lanyard {
-  --card-w: 230px;
+  --card-w: 232px;
+  --strap: clamp(150px, 23vh, 270px);
   position: relative; justify-self: center; align-self: start; z-index: 3;
-  margin-top: clamp(-2.6rem, -3vw, -1.2rem);   /* lift the hook up toward the top of the page */
+  margin-top: clamp(-2.4rem, -3vw, -1rem);   /* lift the anchors toward the top of the page */
+  padding-top: var(--strap);                 /* reserve room for the straps above the card */
   display: flex; flex-direction: column; align-items: center;
   width: var(--card-w); max-width: 88vw;
   -webkit-user-select: none; user-select: none;
   animation: lanyardIn .7s var(--ease) both;
 }
-@keyframes lanyardIn { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+@keyframes lanyardIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* the fixed hook the lanyard hangs from — does NOT swing */
-.lanyard__peg {
-  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 22px; height: 22px; border-radius: 50%; z-index: 6;
-  background: radial-gradient(circle at 34% 30%, #fdfefe, #c2cdda 52%, #8794a6);
-  box-shadow: 0 3px 7px rgba(16, 42, 67, .32), inset 0 1px 1px rgba(255, 255, 255, .85);
-}
-.lanyard__peg::after {
-  content: ""; position: absolute; inset: 7px; border-radius: 50%;
-  background: radial-gradient(circle at 50% 32%, rgba(255, 255, 255, .7), rgba(120, 135, 155, .35));
-}
+/* the two straps are drawn live in this SVG, so they re-shape as the card is dragged */
+.lanyard__ropes { position: absolute; inset: 0; overflow: visible; pointer-events: none; z-index: 1; }
+.lanyard__strap { fill: none; stroke: url(#lan-grad); stroke-width: 27; stroke-linejoin: round; stroke-linecap: butt; filter: drop-shadow(0 2px 2px rgba(8, 18, 34, .45)); }
+.lanyard__strap--back { stroke: url(#lan-grad-back); }   /* back strap darker → reads behind the front one */
+.lanyard__print { fill: rgba(246, 226, 168, .95); font: 700 10.5px/1 var(--ff-head); letter-spacing: 1.5px; dominant-baseline: middle; text-anchor: middle; }
+.lanyard__clip-body { fill: url(#lan-metal); stroke: rgba(58, 70, 86, .35); stroke-width: 1; }
+.lanyard__clip-ring { fill: none; stroke: #9aa5b4; stroke-width: 3; }
 
-/* the swinging assembly: strap + clip + card, pivoting from the hook */
-.lanyard__swing {
-  display: flex; flex-direction: column; align-items: center; width: 100%;
-  transform-origin: top center; will-change: transform;
-  touch-action: pan-y; cursor: grab; padding-top: 11px;   /* clear the hook */
-}
-.lanyard.is-grab .lanyard__swing { cursor: grabbing; }
-
-/* the printed neck strap (doubled ribbon hung from the hook) */
-.lanyard__cord {
-  position: relative; width: 34px; height: clamp(150px, 26vh, 300px);
-  border-radius: 6px; overflow: hidden;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, .16), transparent 32% 68%, rgba(0, 0, 0, .18)),
-    linear-gradient(90deg, #15304a, #2a6099 50%, #14283d);
-  box-shadow: 0 2px 9px rgba(16, 42, 67, .28), inset 0 0 0 1px rgba(255, 255, 255, .05);
-}
-.lanyard__cord::before {   /* center seam — reads as two folded straps */
-  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px;
-  background: rgba(0, 0, 0, .28); transform: translateX(-50%);
-}
-.lanyard__cordtext {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  writing-mode: vertical-rl; text-orientation: mixed; white-space: nowrap; overflow: hidden;
-  font: 700 11px/1 var(--ff-head); letter-spacing: 3px; color: rgba(243, 196, 90, .82);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, .25);
-}
-
-/* metal swivel clip joining strap → card */
-.lanyard__clip {
-  position: relative; z-index: 3; width: 38px; height: 24px; margin-top: -2px;
-  border-radius: 5px 5px 7px 7px;
-  background: linear-gradient(180deg, #eef1f5, #aeb8c6 48%, #818c9b);
-  box-shadow: 0 3px 6px rgba(16, 42, 67, .3), inset 0 1px 1px rgba(255, 255, 255, .9);
-}
-.lanyard__clip::before {   /* swivel ring linking strap → clip */
-  content: ""; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
-  width: 15px; height: 15px; border-radius: 50%; border: 3px solid #97a2b1; background: transparent;
-}
-.lanyard__clip::after {    /* hinge slot */
-  content: ""; position: absolute; left: 8px; right: 8px; bottom: 5px; height: 4px;
-  border-radius: 3px; background: rgba(58, 70, 86, .5);
-}
-
-/* the ID / name card */
+/* the ID / name card — grab & drag it; the straps above follow */
 .lanyard__card {
-  position: relative; width: var(--card-w); margin-top: -3px; z-index: 2;
+  position: relative; width: var(--card-w); z-index: 2;
+  transform-origin: 50% 0; will-change: transform; touch-action: pan-y; cursor: grab;
   background: linear-gradient(168deg, #ffffff, #eef3f9);
   border: 1px solid #e1e8f0; border-radius: 16px; padding: 15px 15px 13px;
   box-shadow: 0 24px 46px -12px rgba(16, 42, 67, .4), 0 6px 14px -6px rgba(16, 42, 67, .2);
   overflow: hidden;
 }
+.lanyard.is-grab .lanyard__card { cursor: grabbing; }
 .lanyard__card::after {   /* glossy plastic sheen */
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(125deg, rgba(255, 255, 255, .5) 0 16%, transparent 36%);
@@ -276,7 +232,7 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
   position: relative; border-radius: 11px; overflow: hidden; background: #eef2f6;
   aspect-ratio: 1 / 1; box-shadow: inset 0 0 0 1px rgba(16, 42, 67, .07);
 }
-.lanyard__photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; pointer-events: none; }
+.lanyard__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; transform: scale(1.14); transform-origin: 50% 0; pointer-events: none; }
 .lanyard__meta { margin-top: 11px; }
 .lanyard__meta strong { display: block; font-family: var(--ff-head); font-weight: 700; color: var(--ink); font-size: 1.08rem; letter-spacing: -.01em; }
 .lanyard__meta span { display: block; color: var(--brand); font-weight: 600; font-size: .76rem; font-family: var(--ff-head); }
@@ -286,11 +242,7 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
     #15293f 0 2px, transparent 2px 4px, #15293f 4px 5px, transparent 5px 9px,
     #15293f 9px 12px, transparent 12px 14px, #15293f 14px 15px, transparent 15px 19px);
 }
-.lanyard__hint {
-  margin-top: 16px; font-size: .74rem; color: var(--muted); white-space: nowrap;
-  display: inline-flex; align-items: center; gap: .4rem; opacity: .8;
-}
-.lanyard__hint::before { content: "↔"; color: var(--gold); font-weight: 700; }
+/* (drag hint removed) */
 
 /* ============================================================
    ABOUT
@@ -322,13 +274,15 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 
 .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
 .chips li {
-  font-size: .85rem; font-weight: 500; color: var(--ink);
-  background: var(--bg-alt); border: 1px solid var(--border);
-  padding: .42rem .85rem; border-radius: 999px; transition: background .2s, color .2s, border-color .2s;
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, monospace;
+  font-size: .8rem; font-weight: 500; color: var(--ink);
+  background: #fff; border: 1px solid var(--border);
+  padding: .36rem .72rem; border-radius: 8px;
+  transition: background .2s, color .2s, border-color .2s, transform .2s;
 }
 .skill-card:hover .chips li { border-color: #dde6f0; }
-.chips li:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
-.chips--sm li { font-size: .78rem; padding: .32rem .7rem; }
+.chips li:hover { background: var(--ink); color: #fff; border-color: var(--ink); transform: translateY(-2px); }
+.chips--sm li { font-size: .74rem; padding: .3rem .62rem; }
 
 /* ============================================================
    EXPERIENCE
@@ -368,7 +322,7 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 
 .exp__side { display: grid; gap: 1.2rem; }
 .exp__photo { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); background: #fff; }
-.exp__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.exp__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center; filter: brightness(1.04) contrast(1.05) saturate(1.03); }
 .exp__photo figcaption { font-size: .82rem; color: var(--muted); text-align: center; padding: .7rem; }
 
 .info-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; box-shadow: var(--shadow-sm); }
@@ -528,10 +482,10 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 .contact__form textarea { resize: vertical; min-height: 120px; }
 .form__honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 .form__actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-.btn--gold { background: var(--gold); color: #1b1407; border: 2px solid transparent; box-shadow: 0 4px 0 0 #b07d12, 0 13px 22px -8px rgba(226, 163, 42, .45); }
-.btn--gold:hover { background: var(--gold-soft); transform: translateY(-2px); box-shadow: 0 6px 0 0 #a6740f, 0 18px 28px -8px rgba(226, 163, 42, .55); }
-.btn--gold:active { transform: translateY(3px); box-shadow: 0 1px 0 0 #b07d12; }
-.btn--gold[disabled] { opacity: .6; cursor: not-allowed; transform: none; box-shadow: 0 4px 0 0 #b07d12; }
+.btn--gold { background: var(--gold); color: #1b1407; border: 1.5px solid transparent; box-shadow: 0 8px 20px -10px rgba(226, 163, 42, .7); }
+.btn--gold:hover { background: var(--gold-soft); transform: translateY(-2px); box-shadow: 0 14px 26px -10px rgba(226, 163, 42, .6); }
+.btn--gold:active { transform: translateY(0); }
+.btn--gold[disabled] { opacity: .6; cursor: not-allowed; transform: none; box-shadow: none; }
 .form__status { font-size: .92rem; min-height: 1.2em; color: #b9c8d8; }
 .form__status.is-ok { color: #7ee0a8; }
 .form__status.is-err { color: #ff9b8a; }
@@ -588,8 +542,7 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
    ============================================================ */
 @media (max-width: 980px) {
   .hero__grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .lanyard { order: -1; margin-top: 0; }
-  .lanyard__cord { height: clamp(120px, 16vh, 190px); }
+  .lanyard { order: -1; margin-top: 0; --strap: clamp(120px, 15vh, 175px); }
   .about__grid,
   .exp__grid { grid-template-columns: 1fr; }
   .project__main,
@@ -830,11 +783,11 @@ html { scrollbar-width: thin; scrollbar-color: #c2cedd transparent; }
   .section, .hero { padding: 1.1rem 0 !important; min-height: auto !important; }
   .hero { padding-top: .4rem !important; }
 
-  /* lanyard: drop the strap/clip/hook on paper, show the card flat & upright */
-  .lanyard { margin-top: 0 !important; }
-  .lanyard__peg, .lanyard__cord, .lanyard__clip, .lanyard__hint,
-  .lanyard__slot, .lanyard__barcode, .lanyard__card::after { display: none !important; }
-  .lanyard__swing { transform: none !important; padding-top: 0 !important; }
+  /* lanyard: drop the straps on paper, show the card flat & upright */
+  .lanyard { margin-top: 0 !important; padding-top: 0 !important; }
+  .lanyard__ropes, .lanyard__slot, .lanyard__barcode, .lanyard__card::after { display: none !important; }
+  .lanyard__card { transform: none !important; }
+  .lanyard__photo img { transform: none !important; }
 
   /* light, ink-friendly backgrounds */
   .section--alt, .section--dark, .section--contact { background: #fff !important; color: #1a2733 !important; }

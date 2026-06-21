@@ -200,60 +200,113 @@
     document.querySelectorAll(".project__hero").forEach((el) => tilt(el, 6));
   }
 
-  /* ---------- Hanging lanyard ID card — drag to swing (pendulum physics) ---------- */
-  (function lanyardSwing() {
+  /* ---------- Lanyard ID card on two live straps — drag the card, the straps follow ---------- */
+  (function lanyard() {
     const wrap = document.getElementById("lanyard");
-    const swing = document.getElementById("lanyard-swing");
-    if (!wrap || !swing) return;
-    if (reduceMotion) { swing.style.transform = "rotate(0rad)"; return; }
+    const card = document.getElementById("lanyard-card");
+    const svg = document.getElementById("lanyard-ropes");
+    if (!wrap || !card || !svg) return;
 
-    const narrow = matchMedia("(max-width: 760px)").matches;
-    const MAX = narrow ? 0.3 : 0.5;      // smaller swing on phones so it stays on-screen
-    const G = 0.0016;         // gravity restoring force (low → long, graceful swing)
-    const DAMP = 0.993;       // air drag
-    let angle = narrow ? -0.18 : -0.42, vel = 0;   // starts tilted → drops & swings in on load
-    let dragging = false, prev = angle, px = 0, py = 0;
-    const clamp = (v, m) => (v < -m ? -m : v > m ? m : v);
+    const NS = "http://www.w3.org/2000/svg";
+    const mk = (n, cls) => { const e = document.createElementNS(NS, n); if (cls) e.setAttribute("class", cls); return e; };
 
-    function setPivot() {
-      const r = swing.getBoundingClientRect();
-      px = r.left + r.width / 2;
-      py = r.top;
+    // build the rig once: two straps with printed text, and the metal clip
+    const strapL = mk("path", "lanyard__strap lanyard__strap--back"); strapL.id = "lanStrapL";  // back (darker)
+    const strapR = mk("path", "lanyard__strap"); strapR.id = "lanStrapR";                        // front
+    // text printed along each strap — follows the path live as it bends
+    const XLINK = "http://www.w3.org/1999/xlink";
+    const printL = mk("text", "lanyard__print"), printR = mk("text", "lanyard__print");
+    const tpL = mk("textPath"), tpR = mk("textPath");
+    tpL.setAttribute("href", "#lanStrapL"); tpL.setAttributeNS(XLINK, "href", "#lanStrapL");
+    tpR.setAttribute("href", "#lanStrapR"); tpR.setAttributeNS(XLINK, "href", "#lanStrapR");
+    tpL.setAttribute("startOffset", "52%"); tpR.setAttribute("startOffset", "52%");
+    tpL.textContent = "KHAIRURAMDHANI · KHAIRURAMDHANI · KHAIRURAMDHANI ·";
+    tpR.textContent = "PORTFOLIO · PORTFOLIO · PORTFOLIO · PORTFOLIO ·";
+    printL.append(tpL); printR.append(tpR);
+    const clip = mk("g", "lanyard__clip");
+    const ring = mk("circle", "lanyard__clip-ring"); ring.setAttribute("r", 6); ring.setAttribute("cy", -12);
+    const body = mk("rect", "lanyard__clip-body");
+    body.setAttribute("x", -15); body.setAttribute("y", -7); body.setAttribute("width", 30); body.setAttribute("height", 16); body.setAttribute("rx", 4);
+    clip.append(ring, body);
+    svg.append(strapL, strapR, printL, printR, clip);
+
+    // geometry, recomputed from the live layout (handles resize / responsive sizes)
+    let W, H, cx, restY, ay, s, L, restLen, maxSide, narrow;
+    function measure() {
+      W = wrap.clientWidth; H = wrap.clientHeight;
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+      svg.setAttribute("width", W); svg.setAttribute("height", H);
+      narrow = matchMedia("(max-width: 760px)").matches;
+      cx = card.offsetLeft + card.offsetWidth / 2;   // strap meeting point (card top-centre) at rest
+      restY = card.offsetTop;
+      // anchor the straps above the viewport so their top ends are never seen
+      ay = -(wrap.getBoundingClientRect().top + window.scrollY) - 40;
+      s = card.offsetWidth * (narrow ? 0.22 : 0.26);   // half-width of the strap V (fairly parallel)
+      L = restY - ay;                                  // cord length (down from the page top)
+      restLen = Math.hypot(s, L);
+      maxSide = Math.min(L * 0.5, narrow ? 120 : 210); // keep the card on-screen when dragged
     }
-    function down(e) {
-      dragging = true; setPivot(); prev = angle;
-      wrap.classList.add("is-grab");
-      try { swing.setPointerCapture(e.pointerId); } catch (_) {}
+
+    // clip particle (Verlet)
+    let x, y, ox, oy;
+    const clampN = (v, a, b) => (v < a ? a : v > b ? b : v);
+
+    function strapD(ax, ay2, bx, by) {
+      const mx = (ax + bx) / 2, my = (ay2 + by) / 2;
+      const len = Math.hypot(bx - ax, by - ay2);
+      const sag = Math.max(2, (restLen - len) * 0.5 + 7);   // slack straps bow out more
+      return "M " + ax + " " + ay2 + " Q " + mx.toFixed(1) + " " + (my + sag).toFixed(1) + " " + bx.toFixed(1) + " " + by.toFixed(1);
     }
-    function move(e) {
+    function render() {
+      strapL.setAttribute("d", strapD(cx - s, ay, x, y));
+      strapR.setAttribute("d", strapD(cx + s, ay, x, y));
+      clip.setAttribute("transform", "translate(" + x.toFixed(1) + " " + y.toFixed(1) + ")");
+      const tilt = Math.atan2(x - cx, Math.max(10, y - ay)) * 0.7;   // card leans the way it swings
+      card.style.transform = "translate(" + (x - cx).toFixed(1) + "px," + (y - restY).toFixed(1) + "px) rotate(" + tilt.toFixed(4) + "rad)";
+    }
+
+    // drag the card directly
+    let dragging = false;
+    function local(e) { const r = wrap.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+    card.addEventListener("pointerdown", (e) => {
+      dragging = true; wrap.classList.add("is-grab");
+      try { card.setPointerCapture(e.pointerId); } catch (_) {}
+    });
+    card.addEventListener("pointermove", (e) => {
       if (!dragging) return;
-      const a = clamp(Math.atan2(e.clientX - px, Math.max(10, e.clientY - py)), MAX);
-      vel = clamp(a - prev, 0.2);         // remember throw velocity for the release
-      prev = angle = a;
+      const p = local(e);
+      ox = x; oy = y;                                 // keep previous → throw momentum on release
+      x = clampN(p.x, cx - maxSide, cx + maxSide);
+      y = clampN(p.y, ay + 18, restY + 70);
+    });
+    function release(e) {
+      if (!dragging) return; dragging = false; wrap.classList.remove("is-grab");
+      try { card.releasePointerCapture(e.pointerId); } catch (_) {}
     }
-    function up(e) {
-      if (!dragging) return;
-      dragging = false; wrap.classList.remove("is-grab");
-      try { swing.releasePointerCapture(e.pointerId); } catch (_) {}
-    }
-    swing.addEventListener("pointerdown", down);
-    swing.addEventListener("pointermove", move);
-    swing.addEventListener("pointerup", up);
-    swing.addEventListener("pointercancel", up);
-    window.addEventListener("resize", setPivot);
+    card.addEventListener("pointerup", release);
+    card.addEventListener("pointercancel", release);
+    window.addEventListener("resize", () => { measure(); render(); });
 
-    let t = performance.now();
-    (function frame(now) {
-      const dt = Math.min((now - t) / 16.67, 2.4); t = now;   // frame-rate independent
+    measure();
+    x = cx; y = restY; ox = x; oy = y;                 // rest at the bottom of the V
+    render();                                          // draw the rest state right away
+    if (reduceMotion) return;
+
+    ox = cx - (narrow ? 9 : 16);                       // tiny nudge → it sways in, then settles
+
+    const GRAV = 0.5, DAMP = 0.985;
+    (function frame() {
       if (!dragging) {
-        vel += -G * Math.sin(angle) * dt;                     // gravity pulls it back to centre
-        vel += Math.sin(now / 1500) * 0.00006 * dt;           // faint breeze so it never dies
-        vel *= Math.pow(DAMP, dt);
-        angle = clamp(angle + vel * dt, MAX);
+        const vx = (x - ox) * DAMP, vy = (y - oy) * DAMP;
+        ox = x; oy = y;
+        x += vx; y += vy + GRAV;
+        const dx = x - cx, dy = y - ay, d = Math.hypot(dx, dy) || 1;
+        if (d > L) { const k = L / d; x = cx + dx * k; y = ay + dy * k; }   // cord taut → swings back
+        if (y < ay + 14) y = ay + 14;
       }
-      swing.style.transform = "rotate(" + angle.toFixed(4) + "rad)";
+      render();
       requestAnimationFrame(frame);
-    })(t);
+    })();
   })();
 
   /* ---------- Lightbox (project heroes + teaching photo) ---------- */

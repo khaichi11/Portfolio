@@ -87,39 +87,38 @@
         </div>
 
         <div class="lanyard" id="lanyard">
-          <!-- fixed peg the badge hangs from (stays put while the card swings) -->
-          <span class="lanyard__peg" aria-hidden="true"></span>
+          <!-- the two straps are rendered live in here (main.js), so they reshape on drag -->
+          <svg class="lanyard__ropes" id="lanyard-ropes" aria-hidden="true">
+            <defs>
+              <linearGradient id="lan-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#2a6099" /><stop offset="1" stop-color="#14283d" />
+              </linearGradient>
+              <linearGradient id="lan-grad-back" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#173a5c" /><stop offset="1" stop-color="#0c1a2b" />
+              </linearGradient>
+              <linearGradient id="lan-metal" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#eef1f5" /><stop offset=".5" stop-color="#aeb8c6" /><stop offset="1" stop-color="#818c9b" />
+              </linearGradient>
+            </defs>
+          </svg>
 
-          <!-- everything below swings together as one rigid piece -->
-          <div class="lanyard__swing" id="lanyard-swing">
-            <!-- printed neck strap, hung from the hook pinned at the very top -->
-            <div class="lanyard__cord" aria-hidden="true">
-              <span class="lanyard__cordtext">KHAIRURAMDHANI · PORTFOLIO · KHAIRURAMDHANI · PORTFOLIO ·</span>
+          <!-- the ID / name card — grab & drag it; the straps adjust like a real lanyard -->
+          <figure class="lanyard__card" id="lanyard-card">
+            <span class="lanyard__slot" aria-hidden="true"></span>
+            <div class="lanyard__head">
+              <span class="lanyard__logo" aria-hidden="true">✦</span>
+              <span>Universitas Brawijaya<small>Teknik Komputer</small></span>
+              <span class="lanyard__badge">ID</span>
             </div>
-
-            <!-- metal swivel clip joining strap → card -->
-            <span class="lanyard__clip" aria-hidden="true"></span>
-
-            <!-- the ID / name card -->
-            <figure class="lanyard__card" id="lanyard-card">
-              <span class="lanyard__slot" aria-hidden="true"></span>
-              <div class="lanyard__head">
-                <span class="lanyard__logo" aria-hidden="true">✦</span>
-                <span>Universitas Brawijaya<small>Teknik Komputer</small></span>
-                <span class="lanyard__badge">ID</span>
-              </div>
-              <div class="lanyard__photo">
-                <img src="assets/profile.jpg" alt="Portrait of Khairuramdhani" width="540" height="810" draggable="false" />
-              </div>
-              <figcaption class="lanyard__meta">
-                <strong>Khairuramdhani</strong>
-                <span>AI / ML &amp; Software Engineer</span>
-              </figcaption>
-              <span class="lanyard__barcode" aria-hidden="true"></span>
-            </figure>
-          </div>
-
-          <p class="lanyard__hint" aria-hidden="true">Tarik &amp; lepas — kartunya bisa diayun</p>
+            <div class="lanyard__photo">
+              <img src="assets/profile.jpg" alt="Portrait of Khairuramdhani" width="540" height="810" draggable="false" />
+            </div>
+            <figcaption class="lanyard__meta">
+              <strong>Khairuramdhani</strong>
+              <span>AI / ML &amp; Software Engineer</span>
+            </figcaption>
+            <span class="lanyard__barcode" aria-hidden="true"></span>
+          </figure>
         </div>
       </div>
     </section>
@@ -342,7 +341,7 @@
                 <li>Python</li><li>Ultralytics</li><li>YOLO</li><li>Anaconda</li><li>Flutter</li><li>Dart</li><li>TensorFlow Lite</li><li>Android</li>
               </ul>
               <a class="repo" href="https://github.com/khaichi11/Mobile-Cheating-Detection-YOLO" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9.4 16.6 4.8 12 9.4 7.4 8 6l-6 6 6 6 1.4-1.4Zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4Z"/></svg>
                 github.com/khaichi11/Mobile-Cheating-Detection-YOLO
               </a>
             </div>
@@ -381,7 +380,7 @@
                 <li>C++</li><li>Arduino</li><li>ESP32</li><li>FreeRTOS</li><li>Sensors</li><li>RTC</li><li>Flutter</li><li>Firebase RTDB</li>
               </ul>
               <a class="repo" href="https://github.com/khaichi11/Aplikasi-Sistem-Tertanam-FishFeed" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9.4 16.6 4.8 12 9.4 7.4 8 6l-6 6 6 6 1.4-1.4Zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4Z"/></svg>
                 github.com/khaichi11/Aplikasi-Sistem-Tertanam-FishFeed
               </a>
             </div>
@@ -419,7 +418,7 @@
                 <li>Python</li><li>scikit-learn</li><li>pandas</li><li>NumPy</li><li>matplotlib</li><li>Anaconda</li><li>SVM</li>
               </ul>
               <a class="repo" href="https://github.com/khaichi11/Code-on-College/blob/main/Semester%204/Sistem-Cerdas/SVM.ipynb" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9.4 16.6 4.8 12 9.4 7.4 8 6l-6 6 6 6 1.4-1.4Zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4Z"/></svg>
                 Code-on-College · SVM.ipynb
               </a>
             </div>
@@ -457,7 +456,7 @@
                 <li>Python</li><li>OpenCV</li><li>TensorFlow</li><li>TF Lite</li><li>CNN</li><li>GrabCut</li><li>Flutter</li><li>Dart</li>
               </ul>
               <a class="repo" href="https://github.com/khaichi11/Aplikasi-Deteksi-Buah-CNN" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9.4 16.6 4.8 12 9.4 7.4 8 6l-6 6 6 6 1.4-1.4Zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4Z"/></svg>
                 github.com/khaichi11/Aplikasi-Deteksi-Buah-CNN
               </a>
             </div>
@@ -494,7 +493,7 @@
                 <li>Python</li><li>pandas</li><li>NumPy</li><li>matplotlib</li><li>Anaconda</li><li>From scratch</li>
               </ul>
               <a class="repo" href="https://github.com/khaichi11/Code-on-College/blob/main/Semester%204/Sistem-Cerdas/K_Means_Pemilah_Sampah.ipynb" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9.4 16.6 4.8 12 9.4 7.4 8 6l-6 6 6 6 1.4-1.4Zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4Z"/></svg>
                 Code-on-College · K_Means_Pemilah_Sampah.ipynb
               </a>
             </div>
@@ -532,7 +531,7 @@
                 <li>Flutter</li><li>TensorFlow</li><li>Python</li><li>Firebase</li><li>Supabase</li><li>MobileNet</li><li>TF Lite</li>
               </ul>
               <a class="repo" href="https://github.com/khaichi11/Mobile-APP-Plant-Detection-Mobilenet" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9.4 16.6 4.8 12 9.4 7.4 8 6l-6 6 6 6 1.4-1.4Zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4Z"/></svg>
                 github.com/khaichi11/Mobile-APP-Plant-Detection-Mobilenet
               </a>
             </div>

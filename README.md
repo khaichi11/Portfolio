@@ -107,10 +107,9 @@ copyleft-bound assets**, and no icon library to install:
 - **Fonts** — Poppins &amp; Inter, served from Google Fonts under the
   [SIL Open Font License](https://openfontlicense.org/) (free, including commercial use).
 - **Icons** — all inline SVG drawn in-house, plus Unicode symbols/emoji
-  (`✦ → ↔ ➤ 👋`). No Font Awesome / icon pack, so nothing to license or attribute.
-- **GitHub mark** — the small octocat used on the repo links is GitHub's
-  trademark, used nominatively just to link to GitHub (their brand guidelines
-  allow this). Swap it for a generic "code" glyph if you'd rather avoid the mark.
+  (`✦ ➤ 👋`). No Font Awesome / icon pack and no third-party logos or trademarks,
+  so there is nothing to license or attribute. (The repo links use a plain
+  `</>` code glyph rather than any brand mark.)
 
 ## License
 

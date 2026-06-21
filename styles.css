@@ -109,15 +109,20 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 
 /* ---------- Buttons / shared ---------- */
 .btn {
-  display: inline-flex; align-items: center; gap: .5rem;
+  position: relative; display: inline-flex; align-items: center; gap: .5rem;
   font-family: var(--ff-head); font-weight: 600; font-size: .95rem;
-  padding: .85rem 1.5rem; border-radius: 999px; cursor: pointer;
-  transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s;
+  padding: .8rem 1.4rem; border-radius: 13px; border: 2px solid transparent; cursor: pointer;
+  transition: transform .16s var(--ease), box-shadow .16s var(--ease), background .2s, border-color .2s;
 }
-.btn--primary { background: var(--ink); color: #fff; box-shadow: var(--shadow-sm); }
-.btn--primary:hover { background: var(--brand); transform: translateY(-3px); box-shadow: var(--shadow-md); }
-.btn--ghost { border: 1.5px solid var(--border); color: var(--ink); }
-.btn--ghost:hover { border-color: var(--ink); transform: translateY(-3px); }
+/* chunky tactile buttons — a hard offset shadow that "presses down" on click */
+.btn--primary { background: var(--ink); color: #fff; box-shadow: 0 4px 0 0 #0b1d30, 0 13px 22px -8px rgba(16, 42, 67, .42); }
+.btn--primary:hover { background: var(--brand); transform: translateY(-2px); box-shadow: 0 6px 0 0 #0a1a2b, 0 18px 28px -8px rgba(16, 42, 67, .5); }
+.btn--primary:active { transform: translateY(3px); box-shadow: 0 1px 0 0 #0b1d30, 0 6px 12px -6px rgba(16, 42, 67, .35); }
+.btn--ghost { background: #fff; color: var(--ink); border-color: var(--ink); box-shadow: 0 4px 0 0 #d6deea; }
+.btn--ghost:hover { background: #fbfcfe; transform: translateY(-2px); box-shadow: 0 6px 0 0 #ccd6e3; }
+.btn--ghost:active { transform: translateY(3px); box-shadow: 0 1px 0 0 #d6deea; }
+.btn--primary::after, .btn--gold::after { content: "\2192"; font-weight: 700; transition: transform .2s var(--ease); }
+.btn--primary:hover::after, .btn--gold:hover::after { transform: translateX(4px); }
 
 .eyebrow {
   font-family: var(--ff-head); font-weight: 600; font-size: .78rem;
@@ -169,23 +174,123 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 .hero__contact a { position: relative; transition: color .2s; }
 .hero__contact a:hover { color: var(--brand); }
 
-/* hero media */
-.hero__media { position: relative; justify-self: center; width: min(100%, 380px); aspect-ratio: 4 / 5; }
-.hero__panel {
-  position: absolute; inset: -8% -28% -8% 12%;
-  background: linear-gradient(160deg, var(--deep), var(--deep-2));
-  border-radius: 26px; z-index: 0;
+/* ---------- hero media — hanging lanyard ID card (hung from the top, swings) ---------- */
+.lanyard {
+  --card-w: 230px;
+  position: relative; justify-self: center; align-self: start; z-index: 3;
+  margin-top: clamp(-2.6rem, -3vw, -1.2rem);   /* lift the hook up toward the top of the page */
+  display: flex; flex-direction: column; align-items: center;
+  width: var(--card-w); max-width: 88vw;
+  -webkit-user-select: none; user-select: none;
+  animation: lanyardIn .7s var(--ease) both;
 }
-.hero__photo {
-  position: absolute; inset: 0; z-index: 2;
-  border-radius: 20px; overflow: hidden; background: #eef2f6;
-  box-shadow: var(--shadow-lg); border: 6px solid #fff;
+@keyframes lanyardIn { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+
+/* the fixed hook the lanyard hangs from — does NOT swing */
+.lanyard__peg {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 22px; height: 22px; border-radius: 50%; z-index: 6;
+  background: radial-gradient(circle at 34% 30%, #fdfefe, #c2cdda 52%, #8794a6);
+  box-shadow: 0 3px 7px rgba(16, 42, 67, .32), inset 0 1px 1px rgba(255, 255, 255, .85);
 }
-.hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-.hero__accent {
-  position: absolute; right: -16px; bottom: -16px; width: 64%; height: 62%;
-  background: var(--gold); border-radius: 18px; z-index: 1;
+.lanyard__peg::after {
+  content: ""; position: absolute; inset: 7px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 32%, rgba(255, 255, 255, .7), rgba(120, 135, 155, .35));
 }
+
+/* the swinging assembly: strap + clip + card, pivoting from the hook */
+.lanyard__swing {
+  display: flex; flex-direction: column; align-items: center; width: 100%;
+  transform-origin: top center; will-change: transform;
+  touch-action: pan-y; cursor: grab; padding-top: 11px;   /* clear the hook */
+}
+.lanyard.is-grab .lanyard__swing { cursor: grabbing; }
+
+/* the printed neck strap (doubled ribbon hung from the hook) */
+.lanyard__cord {
+  position: relative; width: 34px; height: clamp(150px, 26vh, 300px);
+  border-radius: 6px; overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, .16), transparent 32% 68%, rgba(0, 0, 0, .18)),
+    linear-gradient(90deg, #15304a, #2a6099 50%, #14283d);
+  box-shadow: 0 2px 9px rgba(16, 42, 67, .28), inset 0 0 0 1px rgba(255, 255, 255, .05);
+}
+.lanyard__cord::before {   /* center seam — reads as two folded straps */
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px;
+  background: rgba(0, 0, 0, .28); transform: translateX(-50%);
+}
+.lanyard__cordtext {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  writing-mode: vertical-rl; text-orientation: mixed; white-space: nowrap; overflow: hidden;
+  font: 700 11px/1 var(--ff-head); letter-spacing: 3px; color: rgba(243, 196, 90, .82);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .25);
+}
+
+/* metal swivel clip joining strap → card */
+.lanyard__clip {
+  position: relative; z-index: 3; width: 38px; height: 24px; margin-top: -2px;
+  border-radius: 5px 5px 7px 7px;
+  background: linear-gradient(180deg, #eef1f5, #aeb8c6 48%, #818c9b);
+  box-shadow: 0 3px 6px rgba(16, 42, 67, .3), inset 0 1px 1px rgba(255, 255, 255, .9);
+}
+.lanyard__clip::before {   /* swivel ring linking strap → clip */
+  content: ""; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+  width: 15px; height: 15px; border-radius: 50%; border: 3px solid #97a2b1; background: transparent;
+}
+.lanyard__clip::after {    /* hinge slot */
+  content: ""; position: absolute; left: 8px; right: 8px; bottom: 5px; height: 4px;
+  border-radius: 3px; background: rgba(58, 70, 86, .5);
+}
+
+/* the ID / name card */
+.lanyard__card {
+  position: relative; width: var(--card-w); margin-top: -3px; z-index: 2;
+  background: linear-gradient(168deg, #ffffff, #eef3f9);
+  border: 1px solid #e1e8f0; border-radius: 16px; padding: 15px 15px 13px;
+  box-shadow: 0 24px 46px -12px rgba(16, 42, 67, .4), 0 6px 14px -6px rgba(16, 42, 67, .2);
+  overflow: hidden;
+}
+.lanyard__card::after {   /* glossy plastic sheen */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(125deg, rgba(255, 255, 255, .5) 0 16%, transparent 36%);
+  opacity: .55;
+}
+.lanyard__slot {
+  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  width: 50px; height: 9px; border-radius: 999px;
+  background: #1c2b3d; box-shadow: inset 0 1px 2px rgba(0, 0, 0, .6);
+}
+.lanyard__head {
+  display: flex; align-items: center; gap: .5rem; margin: 13px 0 11px;
+  font-family: var(--ff-head); font-size: .6rem; line-height: 1.18;
+  letter-spacing: .04em; color: var(--ink); text-transform: uppercase;
+}
+.lanyard__logo { color: var(--gold); font-size: .95rem; line-height: 1; }
+.lanyard__head > span:nth-child(2) { flex: 1; font-weight: 700; }
+.lanyard__head small { display: block; font-weight: 500; letter-spacing: .02em; color: var(--muted); text-transform: none; }
+.lanyard__badge {
+  font-weight: 700; font-size: .56rem; letter-spacing: .12em; color: #1b1407;
+  background: var(--gold); padding: .16rem .42rem; border-radius: 5px;
+}
+.lanyard__photo {
+  position: relative; border-radius: 11px; overflow: hidden; background: #eef2f6;
+  aspect-ratio: 1 / 1; box-shadow: inset 0 0 0 1px rgba(16, 42, 67, .07);
+}
+.lanyard__photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; pointer-events: none; }
+.lanyard__meta { margin-top: 11px; }
+.lanyard__meta strong { display: block; font-family: var(--ff-head); font-weight: 700; color: var(--ink); font-size: 1.08rem; letter-spacing: -.01em; }
+.lanyard__meta span { display: block; color: var(--brand); font-weight: 600; font-size: .76rem; font-family: var(--ff-head); }
+.lanyard__barcode {
+  display: block; height: 22px; margin-top: 11px; border-radius: 3px; opacity: .82;
+  background: repeating-linear-gradient(90deg,
+    #15293f 0 2px, transparent 2px 4px, #15293f 4px 5px, transparent 5px 9px,
+    #15293f 9px 12px, transparent 12px 14px, #15293f 14px 15px, transparent 15px 19px);
+}
+.lanyard__hint {
+  margin-top: 16px; font-size: .74rem; color: var(--muted); white-space: nowrap;
+  display: inline-flex; align-items: center; gap: .4rem; opacity: .8;
+}
+.lanyard__hint::before { content: "↔"; color: var(--gold); font-weight: 700; }
 
 /* ============================================================
    ABOUT
@@ -423,9 +528,10 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 .contact__form textarea { resize: vertical; min-height: 120px; }
 .form__honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 .form__actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-.btn--gold { background: var(--gold); color: #1b1407; border: none; box-shadow: var(--shadow-sm); }
-.btn--gold:hover { background: var(--gold-soft); transform: translateY(-3px); box-shadow: var(--shadow-md); }
-.btn--gold[disabled] { opacity: .6; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn--gold { background: var(--gold); color: #1b1407; border: 2px solid transparent; box-shadow: 0 4px 0 0 #b07d12, 0 13px 22px -8px rgba(226, 163, 42, .45); }
+.btn--gold:hover { background: var(--gold-soft); transform: translateY(-2px); box-shadow: 0 6px 0 0 #a6740f, 0 18px 28px -8px rgba(226, 163, 42, .55); }
+.btn--gold:active { transform: translateY(3px); box-shadow: 0 1px 0 0 #b07d12; }
+.btn--gold[disabled] { opacity: .6; cursor: not-allowed; transform: none; box-shadow: 0 4px 0 0 #b07d12; }
 .form__status { font-size: .92rem; min-height: 1.2em; color: #b9c8d8; }
 .form__status.is-ok { color: #7ee0a8; }
 .form__status.is-err { color: #ff9b8a; }
@@ -482,13 +588,20 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
    ============================================================ */
 @media (max-width: 980px) {
   .hero__grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .hero__media { order: -1; width: min(78%, 320px); margin-top: 1rem; }
+  .lanyard { order: -1; margin-top: 0; }
+  .lanyard__cord { height: clamp(120px, 16vh, 190px); }
   .about__grid,
   .exp__grid { grid-template-columns: 1fr; }
   .project__main,
   .project--reverse .project__main { grid-template-columns: 1fr; }
   .project--reverse .project__hero { order: 0; }
   .docs__grid, .docs__grid--4, .docs__grid--3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* On phones, let project hero images grow to their natural shape so portrait
+   phone screenshots are big & legible instead of squashed into a short box. */
+@media (max-width: 760px) {
+  .project__hero img { height: auto; max-height: 78vh; padding: .5rem .5rem 2.4rem; }
 }
 
 @media (max-width: 760px) {
@@ -514,6 +627,7 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 @media (max-width: 420px) {
   .docs__grid, .docs__grid--4, .docs__grid--3 { grid-template-columns: 1fr 1fr; }
   .hero__contact { gap: .25rem .9rem; font-size: .82rem; }
+  .lanyard { --card-w: 208px; }
 }
 
 /* ---------- Reduced motion ---------- */
@@ -582,30 +696,15 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 @keyframes blobB { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(34px, -22px) scale(1.1); } }
 
 /* --- 3D tilt + image zoom on project heroes / hero photo --- */
-.project__hero, .hero__photo { transition: transform .35s var(--ease), box-shadow .35s var(--ease); will-change: transform; }
+.project__hero { transition: transform .35s var(--ease), box-shadow .35s var(--ease); will-change: transform; }
 .project__hero img { transition: transform .6s var(--ease); }
 .project__hero:hover img { transform: scale(1.05); }
-
-/* --- dramatic hero photo entrance on first load --- */
-.hero__media--in { animation: heroIn 1.15s cubic-bezier(.2, .75, .25, 1) .15s both; }
-@keyframes heroIn {
-  0%   { opacity: 0; transform: translateX(64px) scale(.82) rotate(5deg); filter: blur(12px); }
-  55%  { filter: blur(0); }
-  100% { opacity: 1; transform: none; filter: none; }
-}
 
 /* --- directional slide-in for projects --- */
 .project.reveal { transform: translateX(-46px); }
 .project--reverse.reveal { transform: translateX(46px); }
 
-/* --- button shine sweep --- */
-.btn { position: relative; overflow: hidden; }
-.btn::after {
-  content: ""; position: absolute; top: 0; left: -130%; width: 55%; height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .4), transparent);
-  transform: skewX(-20deg); transition: left .65s var(--ease); pointer-events: none;
-}
-.btn:hover::after { left: 140%; }
+/* (button shine-sweep removed — replaced by the tactile press + sliding arrow above) */
 
 @media (prefers-reduced-motion: reduce) {
   .flip__inner, .btn::after, .project__hero img { transition: none !important; }
@@ -638,7 +737,7 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 }
 
 /* tactile press feedback on buttons (grow on release) */
-.btn:active, .repo:active, .chat-form button:active, .chat-chips button:active, .chat-panel__close:active { transform: scale(.92); }
+.repo:active, .chat-form button:active, .chat-chips button:active, .chat-panel__close:active { transform: scale(.92); }
 
 /* themed scrollbars — page + chat (no more grey/white default) */
 html { scrollbar-width: thin; scrollbar-color: #c2cedd transparent; }
@@ -731,6 +830,12 @@ html { scrollbar-width: thin; scrollbar-color: #c2cedd transparent; }
   .section, .hero { padding: 1.1rem 0 !important; min-height: auto !important; }
   .hero { padding-top: .4rem !important; }
 
+  /* lanyard: drop the strap/clip/hook on paper, show the card flat & upright */
+  .lanyard { margin-top: 0 !important; }
+  .lanyard__peg, .lanyard__cord, .lanyard__clip, .lanyard__hint,
+  .lanyard__slot, .lanyard__barcode, .lanyard__card::after { display: none !important; }
+  .lanyard__swing { transform: none !important; padding-top: 0 !important; }
+
   /* light, ink-friendly backgrounds */
   .section--alt, .section--dark, .section--contact { background: #fff !important; color: #1a2733 !important; }
   .section--dark::before, .section--dark::after,
@@ -755,7 +860,7 @@ html { scrollbar-width: thin; scrollbar-color: #c2cedd transparent; }
   .flip__back span { color: #44545f !important; }
 
   /* keep the web design's structure & accents on paper */
-  .skill-card, .cert, .stat, .info-card, .doc, .timeline__item, .hero__photo {
+  .skill-card, .cert, .stat, .info-card, .doc, .timeline__item, .lanyard__card {
     border: 1px solid #e3e9f1 !important; box-shadow: none !important; border-radius: 10px !important;
   }
   .eyebrow, .eyebrow--gold, .timeline__date, .project__no, .docs__label { color: #b07d12 !important; }

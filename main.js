@@ -198,9 +198,63 @@
       el.addEventListener("mouseleave", () => { el.style.transform = ""; });
     }
     document.querySelectorAll(".project__hero").forEach((el) => tilt(el, 6));
-    const hp = document.querySelector(".hero__photo");
-    if (hp) tilt(hp, 8);
   }
+
+  /* ---------- Hanging lanyard ID card — drag to swing (pendulum physics) ---------- */
+  (function lanyardSwing() {
+    const wrap = document.getElementById("lanyard");
+    const swing = document.getElementById("lanyard-swing");
+    if (!wrap || !swing) return;
+    if (reduceMotion) { swing.style.transform = "rotate(0rad)"; return; }
+
+    const narrow = matchMedia("(max-width: 760px)").matches;
+    const MAX = narrow ? 0.3 : 0.5;      // smaller swing on phones so it stays on-screen
+    const G = 0.0016;         // gravity restoring force (low → long, graceful swing)
+    const DAMP = 0.993;       // air drag
+    let angle = narrow ? -0.18 : -0.42, vel = 0;   // starts tilted → drops & swings in on load
+    let dragging = false, prev = angle, px = 0, py = 0;
+    const clamp = (v, m) => (v < -m ? -m : v > m ? m : v);
+
+    function setPivot() {
+      const r = swing.getBoundingClientRect();
+      px = r.left + r.width / 2;
+      py = r.top;
+    }
+    function down(e) {
+      dragging = true; setPivot(); prev = angle;
+      wrap.classList.add("is-grab");
+      try { swing.setPointerCapture(e.pointerId); } catch (_) {}
+    }
+    function move(e) {
+      if (!dragging) return;
+      const a = clamp(Math.atan2(e.clientX - px, Math.max(10, e.clientY - py)), MAX);
+      vel = clamp(a - prev, 0.2);         // remember throw velocity for the release
+      prev = angle = a;
+    }
+    function up(e) {
+      if (!dragging) return;
+      dragging = false; wrap.classList.remove("is-grab");
+      try { swing.releasePointerCapture(e.pointerId); } catch (_) {}
+    }
+    swing.addEventListener("pointerdown", down);
+    swing.addEventListener("pointermove", move);
+    swing.addEventListener("pointerup", up);
+    swing.addEventListener("pointercancel", up);
+    window.addEventListener("resize", setPivot);
+
+    let t = performance.now();
+    (function frame(now) {
+      const dt = Math.min((now - t) / 16.67, 2.4); t = now;   // frame-rate independent
+      if (!dragging) {
+        vel += -G * Math.sin(angle) * dt;                     // gravity pulls it back to centre
+        vel += Math.sin(now / 1500) * 0.00006 * dt;           // faint breeze so it never dies
+        vel *= Math.pow(DAMP, dt);
+        angle = clamp(angle + vel * dt, MAX);
+      }
+      swing.style.transform = "rotate(" + angle.toFixed(4) + "rad)";
+      requestAnimationFrame(frame);
+    })(t);
+  })();
 
   /* ---------- Lightbox (project heroes + teaching photo) ---------- */
   const lb = document.getElementById("lightbox");

@@ -44,7 +44,8 @@ HTML5 · CSS3 (custom properties, grid, `clamp()`) · Vanilla JavaScript (`Inter
 portfolio/
 ├── index.html        # all content — edit text here
 ├── styles.css        # all styling — theme colors live in :root at the top
-├── main.js           # scroll reveals, progress bar, lightbox, mobile nav
+├── main.js           # scroll reveals, progress bar, lightbox, mobile nav, lanyard swing
+├── chatbot.js        # lightweight in-browser portfolio assistant
 ├── favicon.svg
 ├── vercel.json       # static deploy config (clean URLs + asset caching)
 └── assets/           # images: profile, projects, documentation, certificates
@@ -52,13 +53,26 @@ portfolio/
 
 ## Run locally
 
-No tooling required — just open `index.html` in a browser.
-For relative paths to behave, serve it with any static server:
+No build step and no dependencies. The quickest way is to **open `index.html`
+directly in a browser**. For relative paths (and the contact form) to behave,
+serve the folder with any static server — pick whichever you have:
 
 ```bash
+# 1) Python (built in on most machines) — run from inside the project folder
+cd portfolio
 python3 -m http.server 5173
-# then open http://localhost:5173
+# then open  http://localhost:5173
+
+# 2) Node, if you prefer
+cd portfolio
+npx serve -l 5173            # or:  npx http-server -p 5173
+
+# 3) VS Code: install the "Live Server" extension,
+#    then right-click index.html → "Open with Live Server"
 ```
+
+Stop the server with `Ctrl + C`. Any of the three serves the whole site at
+`http://localhost:5173` — no internet connection needed.
 
 ## Deploy
 
@@ -84,6 +98,19 @@ Live at `https://khaichi11.github.io/Portfolio/`.
 - GitHub — [@khaichi11](https://github.com/khaichi11)
 - LinkedIn — [khairuramdhani](https://linkedin.com/in/khairuramdhani)
 - Email — [khairuramdhani@student.ub.ac.id](mailto:khairuramdhani@student.ub.ac.id)
+
+## Credits & licensing
+
+Everything here is free to use commercially — there are **no paid or
+copyleft-bound assets**, and no icon library to install:
+
+- **Fonts** — Poppins &amp; Inter, served from Google Fonts under the
+  [SIL Open Font License](https://openfontlicense.org/) (free, including commercial use).
+- **Icons** — all inline SVG drawn in-house, plus Unicode symbols/emoji
+  (`✦ → ↔ ➤ 👋`). No Font Awesome / icon pack, so nothing to license or attribute.
+- **GitHub mark** — the small octocat used on the repo links is GitHub's
+  trademark, used nominatively just to link to GitHub (their brand guidelines
+  allow this). Swap it for a generic "code" glyph if you'd rather avoid the mark.
 
 ## License
 

@@ -177,7 +177,7 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 /* ---------- hero media — lanyard ID card on two live straps (drag → straps follow) ---------- */
 .lanyard {
   --card-w: 232px;
-  --strap: clamp(150px, 23vh, 270px);
+  --strap: clamp(96px, 14vh, 160px);
   position: relative; justify-self: center; align-self: start; z-index: 3;
   margin-top: clamp(-2.4rem, -3vw, -1rem);   /* lift the anchors toward the top of the page */
   padding-top: var(--strap);                 /* reserve room for the straps above the card */
@@ -190,8 +190,8 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 
 /* the two straps are drawn live in this SVG, so they re-shape as the card is dragged */
 .lanyard__ropes { position: absolute; inset: 0; overflow: visible; pointer-events: none; z-index: 1; }
-.lanyard__strap { fill: none; stroke: url(#lan-grad); stroke-width: 27; stroke-linejoin: round; stroke-linecap: butt; filter: drop-shadow(0 2px 2px rgba(8, 18, 34, .45)); }
-.lanyard__strap--back { stroke: url(#lan-grad-back); }   /* back strap darker → reads behind the front one */
+.lanyard__strap { fill: none; stroke: url(#lan-grad); stroke-width: 27; stroke-linejoin: round; stroke-linecap: butt; }
+.lanyard__strap--back { stroke: url(#lan-grad-back); }   /* back strap darker → reads behind the front one (depth without a costly filter) */
 .lanyard__print { fill: rgba(246, 226, 168, .95); font: 700 10.5px/1 var(--ff-head); letter-spacing: 1.5px; dominant-baseline: middle; text-anchor: middle; }
 .lanyard__clip-body { fill: url(#lan-metal); stroke: rgba(58, 70, 86, .35); stroke-width: 1; }
 .lanyard__clip-ring { fill: none; stroke: #9aa5b4; stroke-width: 3; }

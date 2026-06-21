@@ -1,7 +1,7 @@
 <h1 align="center">Khairuramdhani — Portfolio</h1>
 
 <p align="center">
-  <b>AI / ML &amp; Software Engineer</b><br>
+  <b>AI / ML &amp; Mobile Developer</b><br>
   Computer Vision · Embedded Systems (C++) · Mobile (Flutter)<br>
   <sub>Computer Engineering · Universitas Brawijaya</sub>
 </p>

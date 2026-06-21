@@ -228,7 +228,9 @@
     const body = mk("rect", "lanyard__clip-body");
     body.setAttribute("x", -15); body.setAttribute("y", -7); body.setAttribute("width", 30); body.setAttribute("height", 16); body.setAttribute("rx", 4);
     clip.append(ring, body);
-    svg.append(strapL, strapR, printL, printR, clip);
+    // draw order matters: back strap + its text, THEN the front strap (which covers
+    // the back where they overlap), then the front text, then the clip on top
+    svg.append(strapL, printL, strapR, printR, clip);
 
     // geometry, recomputed from the live layout (handles resize / responsive sizes)
     let W, H, cx, restY, ay, s, L, restLen, maxSide, narrow;
@@ -265,19 +267,21 @@
       card.style.transform = "translate(" + (x - cx).toFixed(1) + "px," + (y - restY).toFixed(1) + "px) rotate(" + tilt.toFixed(4) + "rad)";
     }
 
-    // drag the card directly
-    let dragging = false;
+    // drag the card from anywhere on it — the grabbed point stays under the cursor
+    let dragging = false, grabX = 0, grabY = 0;
     function local(e) { const r = wrap.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
     card.addEventListener("pointerdown", (e) => {
       dragging = true; wrap.classList.add("is-grab");
+      const p = local(e);
+      grabX = x - p.x; grabY = y - p.y;               // offset between the clip and where you grabbed
       try { card.setPointerCapture(e.pointerId); } catch (_) {}
     });
     card.addEventListener("pointermove", (e) => {
       if (!dragging) return;
       const p = local(e);
       ox = x; oy = y;                                 // keep previous → throw momentum on release
-      x = clampN(p.x, cx - maxSide, cx + maxSide);
-      y = clampN(p.y, ay + 18, restY + 70);
+      x = clampN(p.x + grabX, cx - maxSide, cx + maxSide);
+      y = clampN(p.y + grabY, ay + 18, restY + 120);
     });
     function release(e) {
       if (!dragging) return; dragging = false; wrap.classList.remove("is-grab");

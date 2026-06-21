@@ -265,13 +265,24 @@
       clip.setAttribute("transform", "translate(" + x.toFixed(1) + " " + y.toFixed(1) + ")");
       const tilt = Math.atan2(x - cx, Math.max(10, y - ay)) * 0.7;   // card leans the way it swings
       card.style.transform = "translate(" + (x - cx).toFixed(1) + "px," + (y - restY).toFixed(1) + "px) rotate(" + tilt.toFixed(4) + "rad)";
+      // slide the plastic highlight opposite the swing → light looks like it stays put
+      const shine = clampN(46 - (x - cx) * 0.42, 8, 84);
+      card.style.setProperty("--shine", shine.toFixed(1) + "%");
     }
+    // one-shot specular sweep across the card (on grab, and on hard swings)
+    let glintLock = 0;
+    function glint() {
+      const now = performance.now();
+      if (now - glintLock < 450) return; glintLock = now;
+      card.classList.remove("glint"); void card.offsetWidth; card.classList.add("glint");
+    }
+    card.addEventListener("animationend", (e) => { if (e.animationName === "lanGlint") card.classList.remove("glint"); });
 
     // drag the card from anywhere on it — the grabbed point stays under the cursor
     let dragging = false, grabX = 0, grabY = 0;
     function local(e) { const r = wrap.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
     card.addEventListener("pointerdown", (e) => {
-      dragging = true; wrap.classList.add("is-grab");
+      dragging = true; wrap.classList.add("is-grab"); glint();
       const p = local(e);
       grabX = x - p.x; grabY = y - p.y;               // offset between the clip and where you grabbed
       try { card.setPointerCapture(e.pointerId); } catch (_) {}
@@ -299,6 +310,7 @@
     ox = cx - (narrow ? 9 : 16);                       // tiny nudge → it sways in, then settles
 
     const GRAV = 0.5, DAMP = 0.985;
+    let prevSide = 0;
     (function frame() {
       if (!dragging) {
         const vx = (x - ox) * DAMP, vy = (y - oy) * DAMP;
@@ -307,10 +319,32 @@
         const dx = x - cx, dy = y - ay, d = Math.hypot(dx, dy) || 1;
         if (d > L) { const k = L / d; x = cx + dx * k; y = ay + dy * k; }   // cord taut → swings back
         if (y < ay + 14) y = ay + 14;
+        // catch the light each time it swings briskly through the middle
+        const side = Math.sign(x - cx);
+        if (side !== prevSide && Math.abs(vx) > 3.2) glint();
+        prevSide = side;
       }
       render();
       requestAnimationFrame(frame);
     })();
+  })();
+
+  /* ---------- Hero name: split into letters for a quick, gentle stagger on load ---------- */
+  (function heroName() {
+    const name = document.getElementById("hero-name");
+    if (!name) return;
+    const text = name.textContent;
+    name.textContent = "";
+    for (let i = 0; i < text.length; i++) {
+      const s = document.createElement("span");
+      s.className = "hero__char";
+      s.textContent = text[i];
+      if (!reduceMotion) {
+        s.style.animation = "charWrite .5s var(--ease) both";
+        s.style.animationDelay = (0.12 + i * 0.04).toFixed(2) + "s";
+      }
+      name.appendChild(s);
+    }
   })();
 
   /* ---------- Lightbox (project heroes + teaching photo) ---------- */

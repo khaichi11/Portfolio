@@ -156,7 +156,7 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 .eyebrow {
   font-family: var(--ff-head); font-weight: 600; font-size: .78rem;
   letter-spacing: .22em; text-transform: uppercase; color: var(--brand);
-  display: inline-flex; align-items: center; gap: .5rem;
+  display: inline-flex; align-items: center; gap: .1rem .5rem; flex-wrap: wrap;
 }
 .eyebrow .sub { color: var(--muted); font-weight: 500; letter-spacing: .12em; }
 .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
@@ -388,10 +388,35 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
   border: solid var(--brand); border-width: 0 2px 2px 0; transform: rotate(45deg);
 }
 
-.exp__side { display: grid; gap: 1.2rem; }
-.exp__photo { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); background: #fff; }
-.exp__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center; filter: brightness(1.04) contrast(1.05) saturate(1.03); }
-.exp__photo figcaption { font-size: .82rem; color: var(--muted); text-align: center; padding: .7rem; }
+.exp__side { display: grid; gap: 1.4rem; }
+
+/* "printed photo" look — white paper border, handwritten caption, a hint of a tilt,
+   like a snapshot taped into a notebook. Straightens up when you hover it. */
+.snapshot {
+  --tilt: -1.2deg;
+  background: #fff; border: 1px solid var(--border); border-radius: 6px;
+  padding: 10px 10px 4px; box-shadow: var(--shadow-md);
+  transform: rotate(var(--tilt));
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.snapshot:hover { transform: rotate(0deg) translateY(-3px); box-shadow: var(--shadow-lg); }
+.snapshot img { width: 100%; border-radius: 3px; }
+.snapshot figcaption {
+  font-family: "Caveat", "Segoe Script", cursive;
+  font-size: 1.28rem; line-height: 1.2; color: #4a5b6e;
+  text-align: center; padding: .55rem .3rem .45rem;
+}
+/* snapshots that also .reveal: keep the tilt once the reveal lands (the generic
+   .reveal.is-visible would otherwise flatten it to transform:none) */
+.reveal.snapshot:not(.is-visible) { transform: translateY(28px) rotate(var(--tilt)); }
+.reveal.snapshot.is-visible { transform: rotate(var(--tilt)); }
+.reveal.snapshot.is-visible:hover { transform: rotate(0deg) translateY(-3px); }
+
+.exp__photo img { aspect-ratio: 3 / 4; object-fit: cover; object-position: center; filter: brightness(1.04) contrast(1.05) saturate(1.03); }
+
+/* photo attached to a timeline entry (e.g. AITF demo day) */
+.timeline__photo { --tilt: 1.1deg; margin-top: 1.3rem; max-width: 440px; }
+.timeline__photo img { cursor: zoom-in; }
 
 .info-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; box-shadow: var(--shadow-sm); }
 .info-card__title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; display: flex; gap: .5rem; align-items: baseline; }
@@ -643,6 +668,16 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
   .contact__grid { grid-template-columns: 1fr; }
   .docs__grid, .docs__grid--4, .docs__grid--3 { grid-template-columns: repeat(2, 1fr); }
   .footer__inner { flex-direction: column; }
+
+  /* narrow columns: justified text opens ugly rivers between words — rag-right reads
+     more naturally on phones (justify stays on for the wide desktop measure) */
+  .lead, .about__text p, .timeline__body p, .project__info p, .hero__org {
+    text-align: left; hyphens: none; -webkit-hyphens: none;
+  }
+
+  /* gentler slide-in distance so nothing pokes past the screen edge mid-animation */
+  .project.reveal:not(.is-visible) { transform: translateX(-24px); }
+  .project--reverse.reveal:not(.is-visible) { transform: translateX(24px); }
 }
 
 @media (max-width: 420px) {
@@ -659,7 +694,9 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
   .hero::before, .contact__bg, .availability__dot,
   .section--dark::before, .section--dark::after,
   .lanyard, .brand__star svg { animation: none !important; }
-  .reveal { opacity: 1; transform: none; transition: none; }
+  /* !important so the higher-specificity :not(.is-visible) start-states above
+     can never leave content shifted when animations are off */
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
 
 /* scroll offset so anchored sections clear the fixed nav (≈ nav height + a hair),
@@ -727,9 +764,12 @@ h1, h2, h3 { font-family: var(--ff-head); color: var(--ink); line-height: 1.12; 
 .project__hero img { transition: transform .6s var(--ease); }
 .project__hero:hover img { transform: scale(1.05); }
 
-/* --- directional slide-in for projects --- */
-.project.reveal { transform: translateX(-46px); }
-.project--reverse.reveal { transform: translateX(46px); }
+/* --- directional slide-in for projects ---
+   scoped to :not(.is-visible): these rules sit after .reveal.is-visible with the
+   same specificity, so without the guard they'd win the cascade and pin every
+   project at ±46px forever — clipping the whole article on phones */
+.project.reveal:not(.is-visible) { transform: translateX(-46px); }
+.project--reverse.reveal:not(.is-visible) { transform: translateX(46px); }
 
 /* (button shine-sweep removed — replaced by the tactile press + sliding arrow above) */
 
@@ -886,8 +926,12 @@ html { scrollbar-width: thin; scrollbar-color: #c2cedd transparent; }
   .flip__back .issuer { color: #9a6f12 !important; }
   .flip__back span { color: #44545f !important; }
 
+  /* snapshots: print flat & straight, keep the paper border */
+  .snapshot { transform: none !important; box-shadow: none !important; }
+  .timeline__photo { max-width: 300px; }
+
   /* keep the web design's structure & accents on paper */
-  .skill-card, .cert, .stat, .info-card, .doc, .timeline__item, .lanyard__card {
+  .skill-card, .cert, .stat, .info-card, .doc, .timeline__item, .lanyard__card, .snapshot {
     border: 1px solid #e3e9f1 !important; box-shadow: none !important; border-radius: 10px !important;
   }
   .eyebrow, .eyebrow--gold, .timeline__date, .project__no, .docs__label { color: #b07d12 !important; }
@@ -897,7 +941,7 @@ html { scrollbar-width: thin; scrollbar-color: #c2cedd transparent; }
   .stat__num { color: #1d4e80 !important; }
 
   /* avoid ugly page breaks */
-  .project, .skill-card, .cert, .doc, .timeline__item, .stat, .info-card { break-inside: avoid; }
+  .project, .skill-card, .cert, .doc, .timeline__item, .stat, .info-card, .snapshot { break-inside: avoid; }
   h2, .section__head, .project__no, .project__title { break-after: avoid; }
   .project__main, .project--reverse .project__main { grid-template-columns: 1fr 1.3fr !important; }
   .project--reverse .project__hero { order: 0; }

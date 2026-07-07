@@ -36,7 +36,7 @@ Hero · About · Skills · Experience (work · teaching · education · organiza
 
 ## Built with
 
-HTML5 · CSS3 (custom properties, grid, `clamp()`) · Vanilla JavaScript (`IntersectionObserver`) · Google Fonts (Poppins, Inter)
+HTML5 · CSS3 (custom properties, grid, `clamp()`) · Vanilla JavaScript (`IntersectionObserver`) · Google Fonts (Poppins, Inter, Caveat)
 
 ## Structure
 
@@ -104,7 +104,7 @@ Live at `https://khaichi11.github.io/Portfolio/`.
 Everything here is free to use commercially — there are **no paid or
 copyleft-bound assets**, and no icon library to install:
 
-- **Fonts** — Poppins &amp; Inter, served from Google Fonts under the
+- **Fonts** — Poppins, Inter &amp; Caveat, served from Google Fonts under the
   [SIL Open Font License](https://openfontlicense.org/) (free, including commercial use).
 - **Icons** — all inline SVG drawn in-house, plus Unicode symbols/emoji
   (`✦ ➤ 👋`). No Font Awesome / icon pack and no third-party logos or trademarks,

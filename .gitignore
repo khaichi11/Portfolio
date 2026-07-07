@@ -14,3 +14,8 @@ _extract/
 _extract.py
 _rename.py
 *.log
+
+# Source photos not used on the site — keep local, never commit
+assets/ASD.JPG
+assets/Pemdas.jpg
+assets/Robotiik.jpeg

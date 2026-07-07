@@ -363,7 +363,7 @@
     document.body.style.overflow = "";
     setTimeout(() => { lbImg.src = ""; }, 300);
   }
-  document.querySelectorAll(".project__hero img, .exp__photo img").forEach((img) => {
+  document.querySelectorAll(".project__hero img, .exp__photo img, .timeline__photo img").forEach((img) => {
     img.style.cursor = "zoom-in";
     img.addEventListener("click", () => openLb(img.getAttribute("src"), img.alt));
   });

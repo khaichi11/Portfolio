@@ -24,41 +24,45 @@
   /* ---------- Per-image explanations for flip-card backs ---------- */
   const DESC = {
     // CERDAS
-    "cerdas-down.jpg": "Head tilted down — flagged as a cheating indication.",
-    "cerdas-front.jpg": "Facing forward — detected as honest, no warning.",
-    "cerdas-left.jpg": "Head turned left — flagged as a violation.",
-    "cerdas-right.jpg": "Head turned right — flagged as a violation.",
+    "cerdas-down.jpg": "Head tilted down, flagged as a cheating indication.",
+    "cerdas-front.jpg": "Facing forward, detected as honest with no warning.",
+    "cerdas-left.jpg": "Head turned left, flagged as a violation.",
+    "cerdas-right.jpg": "Head turned right, flagged as a violation.",
     "cerdas-confusion.png": "Per-class accuracy across the 6 head-orientation classes.",
     // FishFeed
     "fishfeed-circuit.png": "Breadboard wiring of the ESP32, sensors and RTC.",
-    "fishfeed-3d.png": "Enclosure & feeder modelled in Fusion 360 for 3D printing.",
+    "fishfeed-3d.png": "Enclosure and feeder modelled in Fusion 360 for 3D printing.",
     "fishfeed-assembled.png": "The final feeder in its 3D-printed housing.",
-    "fishfeed-app.png": "Flutter app: water status & feeding schedule via Firebase.",
+    "fishfeed-app.png": "Flutter app showing water status and feeding schedule via Firebase.",
     // Arrhythmia
     "arrhythmia-classdist.png": "Balance of Normal vs Arrhythmia samples.",
-    "arrhythmia-scatter.png": "R-R interval vs QRS duration — class separation.",
-    "arrhythmia-report.png": "Precision, recall, F1 — 96% accuracy on the test set.",
+    "arrhythmia-scatter.png": "R-R interval vs QRS duration, showing class separation.",
+    "arrhythmia-report.png": "Precision, recall and F1 score, with 96% accuracy on the test set.",
     "arrhythmia-confusion.png": "Correct vs misclassified SVM predictions.",
     // Buah-Seru
-    "buahseru-welcome.png": "Snap a fruit to start the quiz.",
-    "buahseru-quiz.png": "Pick the correct fruit from the options.",
-    "buahseru-result.png": "Shows the answer with fun nutrition facts.",
+    "buahseru-welcome.png": "Capture a photo of a fruit to start the quiz.",
+    "buahseru-quiz.png": "Select the correct fruit from the options provided.",
+    "buahseru-result.png": "Displays the answer along with related nutrition facts.",
     // K-Means
-    "kmeans-dataset.png": "Building the waste-sorting dataset in the notebook.",
-    "kmeans-algo.png": "K-Means written from scratch — no scikit-learn.",
-    "kmeans-jan.png": "Clusters discovered in the January data.",
-    "kmeans-feb.png": "Clusters discovered in the February data.",
+    "kmeans-dataset.png": "Constructing the waste-sorting dataset in the notebook.",
+    "kmeans-algo.png": "K-Means algorithm implemented manually, without scikit-learn.",
+    "kmeans-jan.png": "Clusters identified in the January data.",
+    "kmeans-feb.png": "Clusters identified in the February data.",
     // PANDAI
-    "pandai-nav.png": "Home, settings and profile — the main navigation.",
-    "pandai-scan.png": "Scanning a real plant with the camera.",
-    "pandai-result.png": "Real-time identification result for the plant.",
-    "pandai-collection.png": "Saved plant collection with detail & description.",
+    "pandai-nav.png": "Home, settings and profile screens forming the main navigation.",
+    "pandai-scan.png": "Scanning a real plant using the camera.",
+    "pandai-result.png": "Real-time identification result for the scanned plant.",
+    "pandai-collection.png": "Saved plant collection with details and descriptions.",
+    // Robotiik chassis
+    "robotiik-04-tempat-servo-besar-3.png": "Servo mount, variant 3: long-span bracket.",
+    "robotiik-05-tempat-servo-besar-4.png": "Servo mount, variant 4: angled bracket.",
+    "robotiik-06-tempat-servo-besar-bawah.png": "Lower servo mount, serving as the base bracket for the leg drive.",
     // Certifications
-    "cert-udemy.png": "44-hour bootcamp on AI, ML and data science.",
+    "cert-udemy.png": "44-hour bootcamp covering AI, ML and data science.",
     "cert-dicoding-ai.png": "Fundamentals of artificial intelligence.",
     "cert-dicoding-viz.png": "Fundamentals of data visualization.",
-    "cert-ta-basicprog.png": "Teaching-assistant certificate — Basic Programming.",
-    "cert-ta-dsa.png": "Teaching-assistant certificate — Data Structures & Algorithms."
+    "cert-ta-basicprog.png": "Teaching-assistant certificate for Basic Programming.",
+    "cert-ta-dsa.png": "Teaching-assistant certificate for Data Structures & Algorithms."
   };
 
   const esc = (s) => (s || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
@@ -75,7 +79,7 @@
       fig.classList.add("flip");
       fig.setAttribute("tabindex", "0");
       fig.setAttribute("role", "button");
-      fig.setAttribute("aria-label", title + (desc ? " — " + desc : ""));
+      fig.setAttribute("aria-label", title + (desc ? ": " + desc : ""));
       fig.innerHTML =
         '<div class="flip__inner">' +
         '<div class="flip__face flip__front"><img src="' + img.getAttribute("src") + '" alt="' + esc(img.alt) + '" loading="lazy"></div>' +
@@ -94,7 +98,7 @@
       fig.classList.add("flip", "flip--cert");
       fig.setAttribute("tabindex", "0");
       fig.setAttribute("role", "button");
-      fig.setAttribute("aria-label", title + (issuer ? " — " + issuer : ""));
+      fig.setAttribute("aria-label", title + (issuer ? ": " + issuer : ""));
       fig.innerHTML =
         '<div class="flip__inner">' +
         '<div class="flip__face flip__front"><img src="' + img.getAttribute("src") + '" alt="' + esc(img.alt) + '" loading="lazy"></div>' +
@@ -363,7 +367,7 @@
     document.body.style.overflow = "";
     setTimeout(() => { lbImg.src = ""; }, 300);
   }
-  document.querySelectorAll(".project__hero img, .exp__photo img, .timeline__photo img").forEach((img) => {
+  document.querySelectorAll(".project__hero img, .exp__photo img, .timeline__photo img, .about__hobby-photo img").forEach((img) => {
     img.style.cursor = "zoom-in";
     img.addEventListener("click", () => openLb(img.getAttribute("src"), img.alt));
   });
@@ -402,15 +406,15 @@
       var val = function (n) { var el = form.elements[n]; return ((el && el.value) || "").trim(); };
       var name = val("name"), email = val("email"), message = val("message");
       var letters = (name.match(/\p{L}/gu) || []).length;
-      if (name.length < 2 || letters < 2) return "Isi nama yang valid (minimal 2 huruf).";
-      if (/https?:\/\/|www\.|\.(com|net|org|id|co)\b/i.test(name)) return "Nama kok ada link? Tulis nama saja ya.";
-      if ((name.match(/\d/g) || []).length > letters) return "Nama jangan didominasi angka.";
+      if (name.length < 2 || letters < 2) return "Masukkan nama yang valid (minimal 2 huruf).";
+      if (/https?:\/\/|www\.|\.(com|net|org|id|co)\b/i.test(name)) return "Nama tidak boleh mengandung tautan. Mohon isi nama saja.";
+      if ((name.match(/\d/g) || []).length > letters) return "Nama tidak boleh didominasi oleh angka.";
       if (name.length > 100) return "Nama terlalu panjang.";
-      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return "Format email belum benar.";
-      if (message.length < 5) return "Pesannya terlalu pendek — tulis sedikit lebih lengkap ya.";
-      if (message.length > 2000) return "Pesan terlalu panjang (maks 2000 karakter).";
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return "Format email tidak valid.";
+      if (message.length < 5) return "Pesan terlalu pendek. Mohon tulis pesan yang lebih lengkap.";
+      if (message.length > 2000) return "Pesan terlalu panjang (maksimal 2000 karakter).";
       var LINK = /(https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|org|id|co|io|xyz|ru|info|link|biz|top|site|app)\b)/i;
-      if (LINK.test(message)) return "Maaf, link/URL tidak diperbolehkan di pesan — biar tetap aman & bersih.";
+      if (LINK.test(message)) return "Tautan atau URL tidak diperbolehkan pada pesan demi menjaga keamanan.";
       // Penyaringan kata kasar dilakukan di sisi server (Apps Script, privat) supaya
       // daftar katanya tidak terekspos di source code publik ini.
       return null;
@@ -419,7 +423,7 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (SCRIPT_URL.indexOf("PASTE_") === 0) {
-        setStatus("Form belum dikonfigurasi — pasang URL Apps Script dulu.", "err");
+        setStatus("Formulir belum dikonfigurasi. Mohon pasang URL Apps Script terlebih dahulu.", "err");
         return;
       }
       var problem = validate();
@@ -432,12 +436,12 @@
         .then(function (data) {
           if (data && data.result === "success") {
             form.reset();
-            setStatus("Terkirim! Terima kasih — pesanmu sudah masuk. 🙌", "ok");
+            setStatus("Pesan berhasil terkirim. Terima kasih, pesan Anda telah kami terima.", "ok");
           } else {
-            setStatus((data && data.message) || "Gagal mengirim. Coba lagi nanti.", "err");
+            setStatus((data && data.message) || "Gagal mengirim pesan. Silakan coba lagi nanti.", "err");
           }
         })
-        .catch(function () { setStatus("Gagal terhubung. Cek koneksi lalu coba lagi.", "err"); })
+        .catch(function () { setStatus("Gagal terhubung ke server. Mohon periksa koneksi Anda dan coba lagi.", "err"); })
         .finally(function () { submitBtn.disabled = false; });
     });
   }

@@ -32,7 +32,7 @@ Scroll-reveal animations use the native `IntersectionObserver` API, so the whole
 
 ## Sections
 
-Hero · About · Skills · Experience (work · teaching · education · organizations) · Projects (6, each with a documentation gallery) · Certifications · Contact
+Hero · About · Skills · Experience (work · teaching · education · organizations) · Projects (7, each with a documentation gallery) · Certifications · Contact
 
 ## Built with
 
